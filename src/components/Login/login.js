@@ -91,7 +91,6 @@ export default class Login extends React.Component{
             loginFunction.vendor_login(email,password).then((res)=>{
                 login=res.data.login;
                 name=res.data.name;
-                alert(login);
                 if(login){
                     var msg = 'Welcome '+name;
                     this.props.history.push('/vendor-home');
