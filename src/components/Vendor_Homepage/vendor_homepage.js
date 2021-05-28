@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default class AdminHomepage extends React.Component{
+export default class VendorHomepage extends React.Component{
     render(){
         return(
             <div>Hello</div>
