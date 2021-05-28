@@ -94,7 +94,8 @@ export default class UploadProductPage extends React.Component {
                         else{
                             errors.description="Enter description";
                         }
-                         default:
+                        // eslint-disable-next-line no-fallthrough
+                        default:
                             break;                
                     }
                     this.setState({userData,[name]:value});

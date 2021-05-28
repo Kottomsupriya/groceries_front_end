@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+<<<<<<< HEAD
 import Login from './components/Login/login';
 import Homepage from './components/Homepage/homepage';
 import UserSignup from './components/Signup/user_signup';
@@ -9,6 +10,17 @@ import VendorHome from './components/User_Vendor_Home/vendor_home';
 import UploadProduct from './components/UploadProduct/UploadProduct';
 import Footer from './components/Footer/footer';
 import Header from './components/Header/header';
+=======
+import Login from './components/Login/login'
+import Homepage from './components/Homepage/homepage'
+import UserSignup from './components/Signup/user_signup'
+import VendorSignup from './components/Signup/vendor_signup'
+import UserHome from './components/User_Vendor_Home/user_home'
+import VendorHome from './components/User_Vendor_Home/vendor_home'
+import UploadProduct from './components/UploadProduct/UploadProduct'
+import Footer from './components/Footer/footer'
+import Header from './components/Header/header'
+>>>>>>> 376a3c30ebb666a4b61f4f6db3b405f61fbd477c
 import './App.css';
 
 function App() {
