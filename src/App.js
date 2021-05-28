@@ -1,14 +1,14 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Login from './Components/Login/login'
-import Homepage from './Components/Homepage/homepage'
-import UserSignup from './Components/Signup/user_signup'
-import VendorSignup from './Components/Signup/vendor_signup'
-import UserHome from './Components/User_Vendor_Home/user_home'
-import VendorHome from './Components/User_Vendor_Home/vendor_home'
-import UploadProduct from './Components/UploadProduct/UploadProduct'
-import Footer from './Components/Footer/footer'
-import Header from './Components/Header/header'
+import Login from './components/Login/login';
+import Homepage from './components/Homepage/homepage';
+import UserSignup from './components/Signup/user_signup';
+import VendorSignup from './components/Signup/vendor_signup';
+import UserHome from './components/User_Vendor_Home/user_home';
+import VendorHome from './components/User_Vendor_Home/vendor_home';
+import UploadProduct from './components/UploadProduct/UploadProduct';
+import Footer from './components/Footer/footer';
+import Header from './components/Header/header';
 import './App.css';
 
 function App() {
