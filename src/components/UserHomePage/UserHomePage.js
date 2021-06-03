@@ -1,4 +1,2 @@
 
 
-//sdgikdujhsbcsoiujhbsk
-console.log("hello")
