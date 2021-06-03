@@ -1,18 +1,21 @@
 import React from 'react'
 import './uploadProduct.css'
+import * as uploadStock from './uploadFunction'
+import axios from 'axios';
 
 export default class UploadProductPage extends React.Component {
     constructor(){
         super();
         this.state={
-            userData:{
+            stockData:{
                 image:'',
                 category:'',
                 title:'',
                 quantity:'',
                 units:'',
                 price:'',
-                description:''
+                description:'',
+                company:''
             },
             errors:{
                 image:'',
@@ -21,7 +24,8 @@ export default class UploadProductPage extends React.Component {
                 quantity:'',  
                 units:'',
                 price:'',
-                description:''              
+                description:'',
+                company:''            
             },
             visited:{
                 image:false,
@@ -30,25 +34,34 @@ export default class UploadProductPage extends React.Component {
                 quantity:false, 
                 units:'', 
                 price:false,
-                description:false
+                description:false,
+                company:false
             }
         }
     }
 
-    handleUserdata=e=>{
+    handleStockData=e=>{
         e.preventDefault();
         let visited=this.state.visited;
         const {name,value}=e.target;
-        let userData = this.state.userData;
+        let stockData = this.state.stockData;
         let errors = this.state.errors;
         switch(name){
             case 'image':
-                visited.title=true;
+                visited.image=true;
                 if(!value){
                     errors.image="Please Upload a Image"
                 }
                 else{
                     errors.image="";
+                    const file = e.target.files[0];
+                    var reader = new FileReader();
+                    reader.onload = function(f){
+                        const img = document.getElementById('img');
+                        img.src=f.target.result;
+                        stockData.image=f.target.result;
+                    }
+                    const  i = reader.readAsDataURL(file);
                 }
                 break;
             case 'category':
@@ -59,7 +72,7 @@ export default class UploadProductPage extends React.Component {
                     }
                     else{
                         errors.category='';
-                        userData.category=value;
+                        stockData.category=value;
                     }
                 }
                 else{
@@ -74,7 +87,7 @@ export default class UploadProductPage extends React.Component {
                     }
                     else{
                         errors.title='';
-                        userData.title=value;
+                        stockData.title=value;
                     }
                 }
                 else{
@@ -89,7 +102,7 @@ export default class UploadProductPage extends React.Component {
                     }
                     else{
                         errors.quantity="";
-                        userData.quantity=value;
+                        stockData.quantity=value;
                     }
                 }
                 else{
@@ -104,7 +117,7 @@ export default class UploadProductPage extends React.Component {
                     }
                     else{
                         errors.units='';
-                        userData.units=value;
+                        stockData.units=value;
                     }
                 }
                 else{
@@ -119,7 +132,7 @@ export default class UploadProductPage extends React.Component {
                     }
                     else{
                         errors.price="";
-                        userData.price=value;
+                        stockData.price=value;
                     }
                 }
                 else{
@@ -134,17 +147,32 @@ export default class UploadProductPage extends React.Component {
                     }
                     else{
                         errors.description='';
-                        userData.description=value;
+                        stockData.description=value;
                     }
                 }
                 else{
                     errors.description="Enter description";
                 }
                 break;
+                case 'company':
+                    visited.company=true;
+                    if(value.length>0){
+                        if(!(value)){
+                            errors.company="Enter only characters";
+                        }
+                        else{
+                            errors.company='';
+                            stockData.company=value;
+                        }
+                    }
+                    else{
+                        errors.company="Enter company name";
+                    }
+                    break;
             default:
                 break;            
         }
-        this.setState({userData,[name]:value});
+        this.setState({stockData,[name]:value});
         this.setState({errors,[name]:value})
         this.setState({visited,[name]:value})
     }
@@ -152,9 +180,21 @@ export default class UploadProductPage extends React.Component {
         e.preventDefault();
         const {errors}=this.state;
         const {visited}=this.state;
-        if(visited.image && visited.title && visited.quantity && visited.category && visited.price && visited.description && visited.units){
-            if(errors.image.length===0 && errors.category.length===0 && errors.title.length===0 && errors.quantity.length===0 && errors.price.length===0 && errors.description.length===0 && errors.units.length===0){
-                alert("submitted");
+        const {stockData}=this.state;
+        // const formData = new FormData();
+        // formData.append('image',stockData.image);
+        // formData.append('category',stockData.category);
+        // formData.append('title',stockData.title);
+        // formData.append('quantity',stockData.quantity);
+        // formData.append('units',stockData.units);
+        // formData.append('price',stockData.price);
+        // formData.append('description',stockData.description);
+        // formData.append('company',stockData.company);
+        if(visited.image && visited.title && visited.quantity && visited.category && visited.price && visited.description && visited.units && visited.company){
+            if(errors.image.length===0 && errors.category.length===0 && errors.title.length===0 && errors.quantity.length===0 && errors.price.length===0 && errors.description.length===0 && errors.units.length===0 && errors.company.length===0){
+                axios.post('http://localhost:4500/stock-upload',stockData).then((res)=>{
+                    console.log(res);
+                })            
             }
             else{
                 alert("Enter Valid Details")
@@ -167,93 +207,119 @@ export default class UploadProductPage extends React.Component {
     render() {
         const {errors}=this.state;
         return(
-            <div className="container mt-5">
-                <table className="mr-auto ml-auto" cellPadding="5">
-                    <tr>
-                        <td className="text-right">Upload Image</td>
-                        <td>
-                            <div className="pl-5 ml-4">
-                                <input type="file" name="image"/>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>{errors.image.length>0 && <span>*{errors.image}</span>}</td>
-                    </tr>
-                    <tr>
-                        <td className="text-right"> Category</td>
-                        <td>
-                            <div className=" w-100">
-                                <input type="text" name="category" placeholder="Enter Category" size="25" onChange={e => this.handleUserdata(e)}/>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>{errors.category.length>0 && <span>*{errors.category}</span>}</td>
-                    </tr>
-                    <tr>
-                        <td className="text-right">Title</td>
-                        <td>
-                            <div className="">
-                                <input type="text" name="title" placeholder="Enter Title" size="25" onChange={e => this.handleUserdata(e)}/>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr className="m-0">
-                        <td></td>
-                        <td>{errors.title.length>0 && <span>*{errors.title}</span>}</td>
-                    </tr>
-                    <tr>
-                        <td className="text-right">Quantity</td>
-                        <td>
-                            <div className="">
-                                <input type="text" name="quantity" placeholder="Enter Quantity" size="25" onChange={e => this.handleUserdata(e)}/>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>{errors.quantity.length>0 && <span>*{errors.quantity}</span>} </td>
-                    </tr>
-                    <tr>
-                        <td className="text-right">Units</td>
-                        <td>
-                        <input type="text" name="units" placeholder="Enter Units" size="25" onChange={e => this.handleUserdata(e)}/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>{errors.units.length>0 && <span>*{errors.units}</span>}</td>
-                    </tr>
-                    <tr>
-                        <td className="text-right">Price</td>
-                        <td>
-                            <div className="">
-                                <input type="text" name="price" placeholder="Enter Price" size="25" onChange={e => this.handleUserdata(e)}/>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>{errors.price.length>0 && <span>*{errors.price}</span>}</td>
-                    </tr>
-                    <tr>
-                        <td className="text-right">Description</td>
-                        <td>
-                            <div className="">
-                                <textarea type="text" name="description" placeholder="Enter Description" cols="28" onChange={e => this.handleUserdata(e)}/>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>{errors.description.length>0 && <span>*{errors.description}</span>}</td>
-                    </tr>
-                </table>
-                <button type="submit" id="button" onClick={e=>this.submitData(e)}>Upload</button>
+            <div className="container">
+                <form onSubmit={e=>this.submitData(e)} encType='multipart/form-data'>
+                    <input type="file" id="image" name="image" accept=".png, .jpg, .jpeg" onChange={e=>this.handleStockData(e)}/>
+                    {errors.image.length>0 && <span>*{errors.image}</span>}<br/>
+                    <img src="" id="img" alt=""/>
+                    <input type="text" name="category" placeholder="Enter Category" size="25" onChange={e => this.handleStockData(e)}/>
+                    {errors.category.length>0 && <span>*{errors.category}</span>}<br/>
+                    <input type="text" name="title" placeholder="Enter Title" size="25" onChange={e => this.handleStockData(e)}/>
+                    {errors.title.length>0 && <span>*{errors.title}</span>}<br/>
+                    <input type="text" name="quantity" placeholder="Enter Quantity" size="25" onChange={e => this.handleStockData(e)}/>
+                    {errors.quantity.length>0 && <span>*{errors.quantity}</span>}<br/>
+                    <input type="text" name="units" placeholder="Enter Units" size="25" onChange={e => this.handleStockData(e)}/>
+                    {errors.units.length>0 && <span>*{errors.units}</span>}<br/>
+                    <input type="text" name="price" placeholder="Enter Price" size="25" onChange={e => this.handleStockData(e)}/>
+                    {errors.price.length>0 && <span>*{errors.price}</span>}<br/>
+                    <textarea type="text" name="description" placeholder="Enter Description" cols="28" onChange={e => this.handleStockData(e)}/>
+                    {errors.description.length>0 && <span>*{errors.description}</span>}<br/>
+                    <input type="text" name="company" placeholder="Enter company name" size="25" onChange={e => this.handleStockData(e)}/>
+                    {errors.company.length>0 && <span>*{errors.company}</span>}<br/>
+                    <button type="submit">Submit</button><br/>
+                </form>
             </div>
+
+
+
+
+            // <div className="container mt-5">
+            //     <table className="mr-auto ml-auto" cellPadding="5">
+            //         <tr>
+            //             <td className="text-right">Upload Image</td>
+            //             <td>
+            //                 <div className="pl-5 ml-4">
+            //                     <input type="file" name="image"/>
+            //                 </div>
+            //             </td>
+            //         </tr>
+            //         <tr>
+            //             <td></td>
+            //             <td>{errors.image.length>0 && <span>*{errors.image}</span>}</td>
+            //         </tr>
+            //         <tr>
+            //             <td className="text-right"> Category</td>
+            //             <td>
+            //                 <div className=" w-100">
+            //                     <input type="text" name="category" placeholder="Enter Category" size="25" onChange={e => this.handleUserdata(e)}/>
+            //                 </div>
+            //             </td>
+            //         </tr>
+            //         <tr>
+            //             <td></td>
+            //             <td>{errors.category.length>0 && <span>*{errors.category}</span>}</td>
+            //         </tr>
+            //         <tr>
+            //             <td className="text-right">Title</td>
+            //             <td>
+            //                 <div className="">
+            //                     <input type="text" name="title" placeholder="Enter Title" size="25" onChange={e => this.handleUserdata(e)}/>
+            //                 </div>
+            //             </td>
+            //         </tr>
+            //         <tr className="m-0">
+            //             <td></td>
+            //             <td>{errors.title.length>0 && <span>*{errors.title}</span>}</td>
+            //         </tr>
+            //         <tr>
+            //             <td className="text-right">Quantity</td>
+            //             <td>
+            //                 <div className="">
+            //                     <input type="text" name="quantity" placeholder="Enter Quantity" size="25" onChange={e => this.handleUserdata(e)}/>
+            //                 </div>
+            //             </td>
+            //         </tr>
+            //         <tr>
+            //             <td></td>
+            //             <td>{errors.quantity.length>0 && <span>*{errors.quantity}</span>} </td>
+            //         </tr>
+            //         <tr>
+            //             <td className="text-right">Units</td>
+            //             <td>
+            //             <input type="text" name="units" placeholder="Enter Units" size="25" onChange={e => this.handleUserdata(e)}/>
+            //             </td>
+            //         </tr>
+            //         <tr>
+            //             <td></td>
+            //             <td>{errors.units.length>0 && <span>*{errors.units}</span>}</td>
+            //         </tr>
+            //         <tr>
+            //             <td className="text-right">Price</td>
+            //             <td>
+            //                 <div className="">
+            //                     <input type="text" name="price" placeholder="Enter Price" size="25" onChange={e => this.handleUserdata(e)}/>
+            //                 </div>
+            //             </td>
+            //         </tr>
+            //         <tr>
+            //             <td></td>
+            //             <td>{errors.price.length>0 && <span>*{errors.price}</span>}</td>
+            //         </tr>
+            //         <tr>
+            //             <td className="text-right">Description</td>
+            //             <td>
+            //                 <div className="">
+            //                     <textarea type="text" name="description" placeholder="Enter Description" cols="28" onChange={e => this.handleUserdata(e)}/>
+            //                 </div>
+            //             </td>
+            //         </tr>
+            //         <tr>
+            //             <td></td>
+            //             <td>{errors.description.length>0 && <span>*{errors.description}</span>}</td>
+            //         </tr>
+            //     </table>
+            //     <button type="submit" id="button" onClick={e=>this.submitData(e)}>Upload</button>
+            // </div>
             
     )
 }

@@ -65,6 +65,7 @@ export default class Login extends React.Component{
             loginFunction.user_login(email,password).then((res)=>{
                 login=res.data.login;
                 name=res.data.name;
+                localStorage.setItem('user_name',name);
                 alert(login);
                 if(login){
                     var msg = 'Welcome '+name;
@@ -91,6 +92,7 @@ export default class Login extends React.Component{
             loginFunction.vendor_login(email,password).then((res)=>{
                 login=res.data.login;
                 name=res.data.name;
+                localStorage.setItem('company_name',res.data.company);
                 if(login){
                     var msg = 'Welcome '+name;
                     this.props.history.push('/vendor-home');
