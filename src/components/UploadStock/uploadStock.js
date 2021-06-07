@@ -1,6 +1,5 @@
 import React from 'react'
 import './uploadProduct.css'
-import * as uploadStock from './uploadFunction'
 import axios from 'axios';
 
 export default class UploadProductPage extends React.Component {
@@ -24,8 +23,7 @@ export default class UploadProductPage extends React.Component {
                 quantity:'',  
                 units:'',
                 price:'',
-                description:'',
-                company:''            
+                description:'',            
             },
             visited:{
                 image:false,
@@ -35,7 +33,6 @@ export default class UploadProductPage extends React.Component {
                 units:'', 
                 price:false,
                 description:false,
-                company:false
             }
         }
     }
@@ -62,7 +59,7 @@ export default class UploadProductPage extends React.Component {
                         stockData.image=f.target.result;
                     }
                     const  i = reader.readAsDataURL(file);
-                }
+               }
                 break;
             case 'category':
                 visited.category=true;
@@ -154,24 +151,10 @@ export default class UploadProductPage extends React.Component {
                     errors.description="Enter description";
                 }
                 break;
-                case 'company':
-                    visited.company=true;
-                    if(value.length>0){
-                        if(!(value)){
-                            errors.company="Enter only characters";
-                        }
-                        else{
-                            errors.company='';
-                            stockData.company=value;
-                        }
-                    }
-                    else{
-                        errors.company="Enter company name";
-                    }
-                    break;
             default:
                 break;            
         }
+        stockData.company=localStorage.getItem('company_name');
         this.setState({stockData,[name]:value});
         this.setState({errors,[name]:value})
         this.setState({visited,[name]:value})
@@ -190,11 +173,12 @@ export default class UploadProductPage extends React.Component {
         // formData.append('price',stockData.price);
         // formData.append('description',stockData.description);
         // formData.append('company',stockData.company);
-        if(visited.image && visited.title && visited.quantity && visited.category && visited.price && visited.description && visited.units && visited.company){
-            if(errors.image.length===0 && errors.category.length===0 && errors.title.length===0 && errors.quantity.length===0 && errors.price.length===0 && errors.description.length===0 && errors.units.length===0 && errors.company.length===0){
+        if(visited.image && visited.title && visited.quantity && visited.category && visited.price && visited.description && visited.units){
+            if(errors.image.length===0 && errors.category.length===0 && errors.title.length===0 && errors.quantity.length===0 && errors.price.length===0 && errors.description.length===0 && errors.units.length===0){
                 axios.post('http://localhost:4500/stock-upload',stockData).then((res)=>{
                     console.log(res);
-                })            
+                })
+                this.props.history.push('/vendor-home')            
             }
             else{
                 alert("Enter Valid Details")
@@ -224,8 +208,6 @@ export default class UploadProductPage extends React.Component {
                     {errors.price.length>0 && <span>*{errors.price}</span>}<br/>
                     <textarea type="text" name="description" placeholder="Enter Description" cols="28" onChange={e => this.handleStockData(e)}/>
                     {errors.description.length>0 && <span>*{errors.description}</span>}<br/>
-                    <input type="text" name="company" placeholder="Enter company name" size="25" onChange={e => this.handleStockData(e)}/>
-                    {errors.company.length>0 && <span>*{errors.company}</span>}<br/>
                     <button type="submit">Submit</button><br/>
                 </form>
             </div>

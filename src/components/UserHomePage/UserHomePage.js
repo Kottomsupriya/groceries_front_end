@@ -13,35 +13,42 @@ export default class UserHomepage extends React.Component{
                 search:''
             },
             dataList:[],
-            noResults:false
+            showHome:true
         }
     }
     handleChange=(e)=>{
         e.preventDefault();
         let data = this.state.data;
         data.search=e.target.value;
-        this.setState({data:data})
-        alert(this.state.data.search);
+        this.setState({data:data});
     }
     handleCatChange=(e)=>{
         e.preventDefault();
         let data = this.state.data;
         data.search=e.target.value;
         this.setState({data:data})
-        alert(this.state.data.search);
         stockSearchFunction.stockSearch(this.state.data).then((res)=>{
-            alert(JSON.stringify(res));
+            this.setState({dataList:res.data});
         })
+        this.setState({showHome:false});
     }
     handleSearch=(e)=>{
         e.preventDefault();
         stockSearchFunction.stockSearch(this.state.data).then((res)=>{
-            alert(JSON.stringify(res));
+            this.setState({dataList:res.data});
         })
+        this.setState({showHome:false});
+    }
+    logout=e=>{
+        this.props.history.push('/login')
     }
     render(){
+        let {dataList}=this.state;
         return(
             <div className="container">
+                <div className="text-right">
+                    <button onClick={e=>{this.logout(e)}}>Logout</button>
+                </div>
                 <div className="pt-3">
                     <form onSubmit={e=>this.handleSearch(e)}>
                         <div class="input-group mb-3">
@@ -50,7 +57,40 @@ export default class UserHomepage extends React.Component{
                         </div>
                     </form>
                 </div>
-                <div>
+                <div className={this.state.showHome?"d-none":"d-block"}>
+                    <div className={dataList.length===0?"d-none":"d-block"}>
+                    {
+                        Object.keys(dataList).map(itemkey=>{
+                            return(
+                                <div>
+                                    <table className="mr-5 ml-5 border border-success d-block">
+                                        <tr>
+                                            <td className="p-3">
+                                                <img src={dataList[itemkey].image} alt={dataList[itemkey].title} height="200px" width="250px" />
+                                            </td>
+                                            <td className="ml-5 p-3">
+                                                <ul type="none" className="text-left">
+                                                    <li className="pl-2 fs-2 text-capitalize fw-bolder">{dataList[itemkey].title}</li>
+                                                    <li className="p-2 fs-4 text-capitalize">Type: {dataList[itemkey].category}</li>
+                                                    <li className="p-2 text-capitalize">About: {dataList[itemkey].description}</li>
+                                                    <li className="p-2">Price: ₹{dataList[itemkey].price}/{dataList[itemkey].units}</li>
+                                                    <li className="p-2 text-capitalize">By {dataList[itemkey].company}</li>
+                                                    <li className="p-2">Stock Available: {dataList[itemkey].quantity}</li>
+                                                </ul>
+                                                <button>Add to Cart</button>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            )
+                        })
+                    }
+                    </div>
+                    <div className={dataList.length===0?"d-block":"d-none"}>
+                        <h3 className="p-5">No Products Found</h3>
+                    </div>
+                </div>
+                <div className={this.state.showHome?"d-block":"d-none"}>
                     <div className="row pt-5">
                         <div className="col">
                             <div>
@@ -67,7 +107,7 @@ export default class UserHomepage extends React.Component{
                         <div className="col">
                             <div>
                                 <img src={dairyImage} style={{display:"block"}} width="400px" height="320px" alt="Dairy" />
-                                <button id="catalogue_button" name="dairy" value="dairy" onClick={e=>this.handleChange(e)}>Dairy</button>
+                                <button id="catalogue_button" name="dairy" value="dairy" onClick={e=>this.handleCatChange(e)}>Dairy</button>
                             </div>
                         </div>
                     </div>

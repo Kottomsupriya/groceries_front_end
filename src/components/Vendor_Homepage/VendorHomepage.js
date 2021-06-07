@@ -24,21 +24,27 @@ export default class VendorHomepage extends React.Component{
             this.setState({stockList:res.data})
         })
     }
+    logout=e=>{
+        this.props.history.push('/login')
+    }
     render(){
         const {stockList}=this.state;
         return(
-            <div className="container w-75">   
-                    <div className="m-5 p-5">
-                        <button onClick={e => this.submitStockData(e)} id="button">View Your Stock</button>
-                        <button onClick={e=>this.toAddStock(e)}>Add New Stock</button>
+            <div className="container w-75">
+                <div className="text-right">
+                    <button onClick={e=>{this.logout(e)}}>Logout</button>
+                </div>  
+                    <div className="m-5">
+                        <button onClick={e => this.submitStockData(e)} id="button" className="m-5">View Your Stock</button>
+                        <button onClick={e=>this.toAddStock(e)} className="m-5">Add New Stock</button>
                     </div>
                     {
                         Object.keys(stockList).map(itemkey=>{
                             return(
                                 <div>
-                                    <table className="mr-auto ml-auto border border-success">
+                                    <table className="ml-5 mr-5 border border-success d-block">
                                         <tr>
-                                            <td className="p-3">
+                                            <td className="p-5">
                                                 <img src={stockList[itemkey].image} alt={stockList[itemkey].title} height="200px" width="250px" />
                                             </td>
                                             <td className="p-5">
