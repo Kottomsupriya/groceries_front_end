@@ -211,7 +211,7 @@ export default class UploadProductPage extends React.Component {
                 <form onSubmit={e=>this.submitData(e)} encType='multipart/form-data'>
                     <input type="file" id="image" name="image" accept=".png, .jpg, .jpeg" onChange={e=>this.handleStockData(e)}/>
                     {errors.image.length>0 && <span>*{errors.image}</span>}<br/>
-                    <img src="" id="img" alt=""/>
+                    <img src="" id="img" alt="" height="200px"/><br/>
                     <input type="text" name="category" placeholder="Enter Category" size="25" onChange={e => this.handleStockData(e)}/>
                     {errors.category.length>0 && <span>*{errors.category}</span>}<br/>
                     <input type="text" name="title" placeholder="Enter Title" size="25" onChange={e => this.handleStockData(e)}/>
