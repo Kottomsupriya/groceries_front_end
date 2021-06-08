@@ -7,6 +7,7 @@ import VendorSignup from './components/Signup/vendor_signup';
 import VendorHomepage from './components/Vendor_Homepage/VendorHomepage'
 import UploadStock from './components/UploadStock/uploadStock'
 import UserHomepage from './components/UserHomePage/UserHomePage'
+import EditStock from './components/Edit_Stock/editStock'
 import Footer from './components/Footer/footer';
 import Header from './components/Header/header';
 import './App.css';
@@ -24,6 +25,7 @@ function App() {
             <Route path="/vendor-home" exact render={props=><VendorHomepage {...props}/>}/>
             <Route path="/upload-stock" exact render={props=><UploadStock {...props}/>}/>
             <Route path="/user-home" exact render={props=><UserHomepage {...props}/>}/>
+            <Route path="/edit-stock" exact render={props=><EditStock {...props}/>}/>
           </Switch>
         </Router>
       <Footer />

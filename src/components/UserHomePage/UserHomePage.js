@@ -63,22 +63,22 @@ export default class UserHomepage extends React.Component{
                         Object.keys(dataList).map(itemkey=>{
                             return(
                                 <div>
-                                    <table className="mr-5 ml-5 border border-success d-block">
+                                    <table className="border border-success d-block w-75 ml-auto mr-auto mt-4">
                                         <tr>
                                             <td className="p-3">
                                                 <img src={dataList[itemkey].image} alt={dataList[itemkey].title} height="200px" width="250px" />
                                             </td>
-                                            <td className="ml-5 p-3">
+                                            <td style={{width:"25rem"}}>
                                                 <ul type="none" className="text-left">
-                                                    <li className="pl-2 fs-2 text-capitalize fw-bolder">{dataList[itemkey].title}</li>
-                                                    <li className="p-2 fs-4 text-capitalize">Type: {dataList[itemkey].category}</li>
-                                                    <li className="p-2 text-capitalize">About: {dataList[itemkey].description}</li>
-                                                    <li className="p-2">Price: ₹{dataList[itemkey].price}/{dataList[itemkey].units}</li>
-                                                    <li className="p-2 text-capitalize">By {dataList[itemkey].company}</li>
-                                                    <li className="p-2">Stock Available: {dataList[itemkey].quantity}</li>
-                                                </ul>
-                                                <button>Add to Cart</button>
+                                                    <li className="fs-2 text-capitalize fw-bolder">{dataList[itemkey].title}</li>
+                                                    <li className="fs-4 text-capitalize">Type: {dataList[itemkey].category}</li>
+                                                    <li>Price: ₹{dataList[itemkey].price}/{dataList[itemkey].units}</li>
+                                                    <li className="text-capitalize">About: {dataList[itemkey].description}</li>
+                                                    <li className=" text-capitalize">By {dataList[itemkey].company}</li>
+                                                    <li>Stock Available: {dataList[itemkey].quantity}</li>
+                                                </ul>     
                                             </td>
+                                            <td><button type="button" className="btn btn-success">Add to Cart</button></td>
                                         </tr>
                                     </table>
                                 </div>
