@@ -42,6 +42,11 @@ export default class UserHomepage extends React.Component{
     logout=e=>{
         this.props.history.push('/login')
     }
+    productPage=(e,list)=>{
+        let data = JSON.stringify(list);
+        localStorage.setItem('productPage',data);
+        this.props.history.push('/product-page');
+    }
     render(){
         let {dataList}=this.state;
         return(
@@ -72,13 +77,16 @@ export default class UserHomepage extends React.Component{
                                                 <ul type="none" className="text-left">
                                                     <li className="fs-2 text-capitalize fw-bolder">{dataList[itemkey].title}</li>
                                                     <li className="fs-4 text-capitalize">Type: {dataList[itemkey].category}</li>
-                                                    <li>Price: ₹{dataList[itemkey].price}/{dataList[itemkey].units}</li>
+                                                    <li className="font-weight-bold">Price: ₹{dataList[itemkey].price}/{dataList[itemkey].units}</li>
                                                     <li className="text-capitalize">About: {dataList[itemkey].description}</li>
                                                     <li className=" text-capitalize">By {dataList[itemkey].company}</li>
                                                     <li>Stock Available: {dataList[itemkey].quantity}</li>
                                                 </ul>     
                                             </td>
-                                            <td><button type="button" className="btn btn-success">Add to Cart</button></td>
+                                            <td>
+                                                <button type="button" className="btn btn-success">Add to Cart</button>
+                                                <button type="button" className="btn btn-success" onClick={e=>this.productPage(e,dataList[itemkey])}>View Product</button>
+                                            </td>
                                         </tr>
                                     </table>
                                 </div>

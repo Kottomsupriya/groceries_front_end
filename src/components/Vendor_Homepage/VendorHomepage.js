@@ -73,7 +73,7 @@ export default class VendorHomepage extends React.Component{
                                                 <ul type="none" className="text-left">
                                                     <li className="fs-2 text-capitalize fw-bolder">{stockList[itemkey].title}</li>
                                                     <li className="fs-4 text-capitalize">Type: {stockList[itemkey].category}</li>
-                                                    <li>Price: ₹{stockList[itemkey].price}/{stockList[itemkey].quantity} {stockList[itemkey].units}</li>
+                                                    <li className="font-weight-bold">Price: ₹{stockList[itemkey].price}/{stockList[itemkey].quantity}{stockList[itemkey].units}</li>
                                                     <li className="text-capitalize">About: {stockList[itemkey].description}</li>
                                                     <li className=" text-capitalize">By {stockList[itemkey].company}</li>
                                                     <li>Stock Available: {stockList[itemkey].totalStock}</li>
