@@ -1,7 +1,4 @@
-<<<<<<< HEAD
 
-
-=======
 import React from 'react';
 import './userHomepage.css'
 import * as stockSearchFunction from './stockSearch';
@@ -25,7 +22,7 @@ export default class UserHomepage extends React.Component{
         let data = this.state.data;
         data.search=e.target.value;
         this.setState({data:data})
-        alert(this.state.data.search);
+       // alert(this.state.data.search);
     }
     handleCatChange=(e)=>{
         e.preventDefault();
@@ -81,4 +78,3 @@ export default class UserHomepage extends React.Component{
     }
 
 }
->>>>>>> f407a60c7aab30d59398ebd240c2eaf888b329af
