@@ -1,12 +1,15 @@
 import React from 'react'
-import './uploadProduct.css'
+import './editStock.css'
 import axios from 'axios';
 
 export default class UploadProductPage extends React.Component {
     constructor(){
         super();
+        let data=localStorage.getItem('edit_details');
+        let dataList=JSON.parse(data);
         this.state={
-            stockData:{
+            stockData:dataList,
+            errors:{
                 image:'',
                 category:'',
                 title:'',
@@ -14,41 +17,18 @@ export default class UploadProductPage extends React.Component {
                 totalStock:'',
                 units:'',
                 price:'',
-                description:'',
-                company:''
-            },
-            errors:{
-                image:'',
-                category:'',
-                title:'',
-                quantity:'', 
-                totalStock:'', 
-                units:'',
-                price:'',
                 description:'',            
-            },
-            visited:{
-                image:false,
-                category:false,
-                title:false,
-                quantity:false,
-                totalStock:false,
-                units:false, 
-                price:false,
-                description:false,
             }
         }
     }
 
     handleStockData=e=>{
         e.preventDefault();
-        let visited=this.state.visited;
         const {name,value}=e.target;
         let stockData = this.state.stockData;
         let errors = this.state.errors;
         switch(name){
             case 'image':
-                visited.image=true;
                 if(!value){
                     errors.image="Please Upload a Image"
                 }
@@ -65,7 +45,6 @@ export default class UploadProductPage extends React.Component {
                }
                 break;
             case 'category':
-                visited.category=true;
                 if(value.length>0){
                     if(!/^[A-Za-z ]+$/.test(value)){
                         errors.category="Enter only characters";
@@ -80,7 +59,6 @@ export default class UploadProductPage extends React.Component {
                 }
                 break;
             case 'title':
-                visited.title=true;
                 if(value.length>0){
                     if(!/^[A-Za-z ]+$/.test(value)){
                         errors.title="Enter only characters";
@@ -95,10 +73,9 @@ export default class UploadProductPage extends React.Component {
                 }
                 break;
             case 'quantity':
-                visited.quantity=true;
                 if(value.length>0){
                     if(!/^\d{0,5}$/.test(value)){
-                        errors.quantity="Enter only Digits & Max 5 Digits";
+                        errors.quantity="Enter only Digits & Min 5 Digits";
                     }
                     else{
                         errors.quantity="";
@@ -110,7 +87,6 @@ export default class UploadProductPage extends React.Component {
                 }
                 break;
             case 'totalStock':
-                visited.totalStock=true;
                 if(value.length>0){
                     if(!/^\d{0,5}$/.test(value)){
                         errors.totalStock="Enter only Digits & Max 5 Digits";
@@ -125,7 +101,6 @@ export default class UploadProductPage extends React.Component {
                 }
                 break;
             case 'units':
-                visited.units=true;
                 if(value.length>0){
                     if(!/^[A-Za-z ]+$/.test(value)){
                         errors.units="Enter only characters";
@@ -140,7 +115,6 @@ export default class UploadProductPage extends React.Component {
                 }
                 break;            
             case 'price':
-                visited.price=true;
                 if(value.length>0){
                     if(!/^\d{0,5}$/.test(value)){
                         errors.price="Enter only Digits & min 5 digits";
@@ -155,7 +129,6 @@ export default class UploadProductPage extends React.Component {
                 }
                 break;
             case 'description':
-                visited.description=true;
                 if(value.length>0){
                     if(!(value)){
                         errors.description="Enter only characters";
@@ -175,33 +148,27 @@ export default class UploadProductPage extends React.Component {
         stockData.company=localStorage.getItem('company_name');
         this.setState({stockData,[name]:value});
         this.setState({errors,[name]:value})
-        this.setState({visited,[name]:value})
     }
     submitData = e=>{
         e.preventDefault();
         const {errors}=this.state;
-        const {visited}=this.state;
         const {stockData}=this.state;
-        if(visited.image && visited.title && visited.quantity && visited.totalStock && visited.category && visited.price && visited.description && visited.units){
-            if(errors.image.length===0 && errors.category.length===0 && errors.title.length===0 && errors.quantity.length===0 && errors.totalStock.length===0 && errors.price.length===0 && errors.description.length===0 && errors.units.length===0){
-                axios.post('http://localhost:4500/stock-upload',stockData).then((res)=>{
-                    console.log(res);
-                })
-                this.props.history.push('/vendor-home')            
-            }
-            else{
-                alert("Enter Valid Details")
-            }
+        if(errors.image.length===0 && errors.category.length===0 && errors.title.length===0 && errors.quantity.length===0 && errors.totalStock.length===0 && errors.price.length===0 && errors.description.length===0 && errors.units.length===0){
+            axios.post('http://localhost:4500/stock-update',stockData).then((res)=>{
+                console.log(res);
+            })
+            // this.props.history.push('/vendor-home')            
         }
         else{
-            alert("Please Fill the Form");
+            alert("Enter Valid Details")
         }
     }
     render() {
         const {errors}=this.state;
+        const {stockData}=this.state;
         return(
             <div className="container">
-                <h1 className="p-4">Add Stock</h1>
+                <h1 className="p-4">Edit Stock</h1>
                 <form onSubmit={e=>this.submitData(e)} className="w-50 ml-auto mr-auto">
                     <div className="form-group row">
                         <label for="file" class="col-sm-2 col-form-label">Upload</label>
@@ -210,57 +177,57 @@ export default class UploadProductPage extends React.Component {
                             {errors.image.length>0 && <span>*{errors.image}</span>}<br/>
                         </div>
                     </div>
-                    <img src="" id="img" alt="" height="200px"/><br/>
+                    <img src={stockData.image} id="img" alt="" height="200px"/><br/>
                     <div className="form-group row">
                         <label for="category" class="col-sm-2 col-form-label">Category</label>
                         <div className="col-sm-10">
-                            <input type="text" className="form-control" id="category" name="category" onChange={e => this.handleStockData(e)}/>
+                            <input type="text" className="form-control" value={stockData.category} id="category" name="category" onChange={e => this.handleStockData(e)}/>
                             {errors.category.length>0 && <span>*{errors.category}</span>}<br/>
                         </div>
                     </div>
                     <div className="form-group row">
                         <label for="title" class="col-sm-2 col-form-label">Title</label>
                         <div className="col-sm-10">
-                            <input type="text" className="form-control" id="title" name="title" onChange={e => this.handleStockData(e)}/>
+                            <input type="text" className="form-control" value={stockData.title} id="title" name="title" onChange={e => this.handleStockData(e)}/>
                             {errors.title.length>0 && <span>*{errors.title}</span>}<br/>
                         </div>
                     </div>
                     <div className="form-group row">
                         <label for="quantity" class="col-sm-2 col-form-label">Quantity</label>
                         <div className="col-sm-10">
-                            <input type="text" className="form-control" id="quantity" name="quantity" onChange={e => this.handleStockData(e)}/>
+                            <input type="text" className="form-control" value={stockData.quantity} id="quantity" name="quantity" onChange={e => this.handleStockData(e)}/>
                             {errors.quantity.length>0 && <span>*{errors.quantity}</span>}<br/>
                         </div>
                     </div>
                     <div className="form-group row">
                         <label for="totalStock" class="col-sm-2 col-form-label">Total Stock</label>
                         <div className="col-sm-10">
-                            <input type="text" className="form-control" id="totalStock" name="totalStock" onChange={e => this.handleStockData(e)}/>
+                            <input type="text" className="form-control" value={stockData.totalStock} id="totalStock" name="totalStock" onChange={e => this.handleStockData(e)}/>
                             {errors.totalStock.length>0 && <span>*{errors.totalStock}</span>}<br/>
                         </div>
                     </div>
                     <div className="form-group row">
                         <label for="units" class="col-sm-2 col-form-label">Units</label>
                         <div className="col-sm-10">
-                            <input type="text" className="form-control" id="units" name="units" onChange={e => this.handleStockData(e)}/>
+                            <input type="text" className="form-control" value={stockData.units} id="units" name="units" onChange={e => this.handleStockData(e)}/>
                             {errors.units.length>0 && <span>*{errors.units}</span>}<br/>
                         </div>
                     </div>
                     <div className="form-group row">
                         <label for="price" class="col-sm-2 col-form-label">Price</label>
                         <div className="col-sm-10">
-                            <input type="text" className="form-control" id="price" name="price" onChange={e => this.handleStockData(e)}/>
+                            <input type="text" className="form-control" value={stockData.price} id="price" name="price" onChange={e => this.handleStockData(e)}/>
                             {errors.price.length>0 && <span>*{errors.price}</span>}<br/>
                         </div>
                     </div>
                     <div className="form-group row">
                         <label for="description" class="col-sm-2 col-form-label">Description</label>
                         <div className="col-sm-10">
-                            <textarea type="text" className="form-control" id="description" name="description" onChange={e => this.handleStockData(e)}/>
+                            <textarea type="text" className="form-control" value={stockData.description} id="description" name="description" onChange={e => this.handleStockData(e)}/>
                             {errors.description.length>0 && <span>*{errors.description}</span>}<br/>
                         </div>
                     </div>
-                    <button type="submit" className="btn btn-success">Submit</button><br/>
+                    <button type="submit">Submit</button><br/>
                 </form>
             </div>            
         )

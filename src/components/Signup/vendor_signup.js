@@ -124,6 +124,7 @@ export default class VendorSignup extends React.Component{
                     errors.address=''
                     userData.address=value;
                 }
+            break;
             default:
                 break;                
         }
