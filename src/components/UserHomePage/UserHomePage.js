@@ -42,6 +42,12 @@ export default class UserHomepage extends React.Component{
     logout=e=>{
         this.props.history.push('/login')
     }
+    cart=e=>{
+        this.props.history.push('/shopping-cart')
+    }
+    orders=e=>{
+        this.props.history.push('/your-orders')
+    }
     productPage=(e,list)=>{
         let data = JSON.stringify(list);
         localStorage.setItem('productPage',data);
@@ -52,7 +58,9 @@ export default class UserHomepage extends React.Component{
         return(
             <div className="container">
                 <div className="text-right">
-                    <button onClick={e=>{this.logout(e)}}>Logout</button>
+                    <button className="btn btn-success" onClick={e=>{this.logout(e)}}>Logout</button>
+                    <button className="btn btn-success" onClick={e=>{this.cart(e)}}>Cart</button>
+                    <button className="btn btn-success" onClick={e=>{this.orders(e)}}>Your Orders</button>
                 </div>
                 <div className="pt-3">
                     <form onSubmit={e=>this.handleSearch(e)}>
@@ -84,8 +92,7 @@ export default class UserHomepage extends React.Component{
                                                 </ul>     
                                             </td>
                                             <td>
-                                                <button type="button" className="btn btn-success">Add to Cart</button>
-                                                <button type="button" className="btn btn-success" onClick={e=>this.productPage(e,dataList[itemkey])}>View Product</button>
+                                                <button type="button" className="btn btn-success mt-4 fs-5" onClick={e=>this.productPage(e,dataList[itemkey])}>View Product</button>
                                             </td>
                                         </tr>
                                     </table>

@@ -157,7 +157,7 @@ export default class UploadProductPage extends React.Component {
             axios.post('http://localhost:4500/stock-update',stockData).then((res)=>{
                 console.log(res);
             })
-            // this.props.history.push('/vendor-home')            
+            this.props.history.push('/vendor-home')            
         }
         else{
             alert("Enter Valid Details")
