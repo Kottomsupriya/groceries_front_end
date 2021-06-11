@@ -19,6 +19,7 @@ export default class ProductPage extends React.Component{
                 units:'',
                 price:0,
                 description:'',
+                company:'',
                 count:0
             },
             cartList:[],
@@ -47,17 +48,13 @@ export default class ProductPage extends React.Component{
             list.units=stockData.units;
             list.price=stockData.price;
             list.description=stockData.description;
+            list.company=stockData.company;
             list.count = 1;
             cartList.push(list);
-            console.log("new record")
         }
         else{
             cartList[i].count=cartList[i].count+1;
-            console.log("existing record")
         }
-        console.log("index:", i);
-        console.log("data:", cartList);
-        console.log("count:",this.state.count);
         localStorage.setItem("cartList",JSON.stringify(cartList));
         console.log(JSON.parse(localStorage.getItem("cartList")))
         // console.log(localStorage.getItem("cartList"))
@@ -87,8 +84,6 @@ export default class ProductPage extends React.Component{
             console.log("0 items");
             this.setState({count:0});
         }
-        console.log("count:",this.state.count);
-        console.log("data:", cartList);
         localStorage.setItem("cartList",JSON.stringify(cartList));
         console.log(JSON.parse(localStorage.getItem("cartList")))
         // console.log(localStorage.getItem("cartList"))
@@ -100,13 +95,13 @@ export default class ProductPage extends React.Component{
         const {stockData} = this.state;
         const {cartList} = this.state;
         const {count} = this.state;
-        const {currentIndex} = this.state;;
+        const {currentIndex} = this.state;
         return(
             <div className="container w-75">
                 <div className="mt-5 border border-success">
                     <table>
                         <tr>
-                            <td style={{width:"450px"}}><img src={stockData.image} alt="" width="300" /></td>
+                            <td style={{width:"450px"}}><img src={stockData.image} alt={stockData.title} width="300" /></td>
                             <td className="text-left">
                                 <h1 className="text-capitalize pt-3 fw-bolder">{stockData.title} ({stockData.quantity} {stockData.units})</h1>
                                 <h3  className="text-danger text-capitalize">From {stockData.company}</h3>                                <h4 className="text-danger text-capitalize">in {stockData.category}</h4>
