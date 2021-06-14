@@ -9,6 +9,10 @@ import UploadStock from './components/UploadStock/uploadStock'
 import UserHomepage from './components/UserHomePage/UserHomePage'
 import EditStock from './components/Edit_Stock/editStock'
 import ProductPage from './components/ProductPage/productPage'
+import Cart from './components/Cart/cart'
+import Orders from './components/OrdersPage/orders'
+import Payment from './components/Payment/payment'
+import Confirmation from './components/ConfirmationPage/confirmation';
 import Footer from './components/Footer/footer';
 import Header from './components/Header/header';
 import './App.css';
@@ -28,6 +32,10 @@ function App() {
             <Route path="/user-home" exact render={props=><UserHomepage {...props}/>}/>
             <Route path="/edit-stock" exact render={props=><EditStock {...props}/>}/>
             <Route path="/product-page" exact render={props=><ProductPage {...props}/>}/>
+            <Route path="/shopping-cart" exact render={props=><Cart {...props}/>}/>
+            <Route path="/payment" exact render={props=><Payment {...props}/>}/>
+            <Route path="/your-orders" exact render={props=><Orders {...props}/>}/>
+            <Route path="/order-confirmation" exact render={props=><Confirmation {...props}/>}/>
           </Switch>
         </Router>
       <Footer />

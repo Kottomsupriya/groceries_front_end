@@ -66,7 +66,6 @@ export default class Login extends React.Component{
                 login=res.data.login;
                 name=res.data.name;
                 localStorage.setItem('user_name',name);
-                alert(login);
                 if(login){
                     var msg = 'Welcome '+name;
                     this.props.history.push('/user-home');
