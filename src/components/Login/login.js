@@ -1,8 +1,10 @@
 import React from 'react'
 import './login.css'
 import * as loginFunction from './loginFunction.js'
+import Navbar from '../NavBar/homeNavbar'
+import { connect } from 'react-redux';
 
-export default class Login extends React.Component{
+class Login extends React.Component{
     constructor(){
         super();
         this.state={
@@ -63,9 +65,10 @@ export default class Login extends React.Component{
             let email=this.state.userEmail;
             let password=this.state.userPassword;
             loginFunction.user_login(email,password).then((res)=>{
+                this.props.userLoginDispatcher(res.data)
                 login=res.data.login;
                 name=res.data.name;
-                localStorage.setItem('user_name',name);
+                //localStorage.setItem('user_name',name);
                 if(login){
                     var msg = 'Welcome '+name;
                     this.props.history.push('/user-home');
@@ -89,9 +92,10 @@ export default class Login extends React.Component{
             let email=this.state.vendorEmail;
             let password=this.state.vendorPassword;
             loginFunction.vendor_login(email,password).then((res)=>{
+                this.props.vendorloginDispatcher(res.data);
                 login=res.data.login;
                 name=res.data.name;
-                localStorage.setItem('company_name',res.data.company);
+                //localStorage.setItem('company_name',res.data.company);
                 if(login){
                     var msg = 'Welcome '+name;
                     this.props.history.push('/vendor-home');
@@ -108,7 +112,8 @@ export default class Login extends React.Component{
     }
     render(){
         return(
-            <div className="container w-75">
+            <div className="container">
+                <Navbar/>
                 <div className="row mt-5">
                     <div className="col m-5 p-5 border border-success">
                         <h3>User Login</h3>
@@ -151,3 +156,14 @@ export default class Login extends React.Component{
         )
     }
 }
+
+
+const mapDispatchToProps=(dispatch)=>{
+    return{
+        userLoginDispatcher: (data) => dispatch({type:"userLogin",payload: data}),
+        vendorloginDispatcher: (data) => dispatch({type:"vendorLogin",payload: data})
+    }
+}
+
+
+export default connect(null,mapDispatchToProps)(Login)

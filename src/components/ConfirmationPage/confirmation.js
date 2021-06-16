@@ -1,38 +1,34 @@
 import React from "react";
+import Navbar from '../NavBar/userNavbar'
+import { connect } from "react-redux";
 
-export default class Confirmation extends React.Component{
-    constructor(){
-        super();
-        this.state={
-            
-        }
-    }
-
+class Confirmation extends React.Component{
     render(){
-        let cartList=JSON.parse(localStorage.getItem("cartList"));
+        let orderlist=this.props.order;
         return(
-            <div className="container w-50">
+            <div className="container">
+                <Navbar/>
                 <h1 className=""><u>Order Confirmation</u></h1>
                 <h3 className="text-success">Your Order is Confirmed!</h3>
                 <div>
                     <h4>Order List</h4>
                     {
-                        Object.keys(cartList).map(itemkey=>{
+                        Object.keys(orderlist).map(itemkey=>{
                             return(
-                                <table className="border border-success d-block">
+                                <table className="border border-success d-block w-50 mx-auto ml-auto">
                                     <tr>
                                         <td className="fs-1 p-5">{parseInt(itemkey)+1}.</td>
                                         <td className="p-4">
-                                                <img src={cartList[itemkey].image} alt={cartList[itemkey].title} height="200px" width="250px" />
+                                                <img src={orderlist[itemkey].image} alt={orderlist[itemkey].title} height="200px" width="250px" />
                                             </td>
                                         <td style={{width:"25rem"}}>
                                             <ul type="none" className="text-left">
-                                                <li className="fs-2 text-capitalize fw-bolder">{cartList[itemkey].title}</li>
-                                                <li className="fs-4 text-capitalize">Type: {cartList[itemkey].category}</li>
-                                                <li className="font-weight-bold">Price: ₹{cartList[itemkey].price}/{cartList[itemkey].units}</li>
-                                                <li className="text-capitalize">Quantity: {cartList[itemkey].count}</li>
-                                                <li className="text-capitalize">About: {cartList[itemkey].description}</li>
-                                                <li className=" text-capitalize">By {cartList[itemkey].company}</li>
+                                                <li className="fs-2 text-capitalize fw-bolder">{orderlist[itemkey].title}</li>
+                                                <li className="fs-4 text-capitalize">Type: {orderlist[itemkey].category}</li>
+                                                <li className="font-weight-bold">Price: ₹{orderlist[itemkey].price}/{orderlist[itemkey].units}</li>
+                                                <li className="text-capitalize">Quantity: {orderlist[itemkey].count}</li>
+                                                <li className="text-capitalize">About: {orderlist[itemkey].description}</li>
+                                                <li className=" text-capitalize">By {orderlist[itemkey].company}</li>
                                             </ul>     
                                         </td>
                                     </tr>
@@ -45,3 +41,12 @@ export default class Confirmation extends React.Component{
         )
     }
 }
+
+const mapStateToProps = state =>{
+    console.log("orderlist:",state.user.orderDetails)
+    return{
+        order: state.user.orderDetails
+    }
+}
+
+export default connect(mapStateToProps)(Confirmation);

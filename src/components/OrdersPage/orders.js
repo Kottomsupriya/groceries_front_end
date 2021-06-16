@@ -1,6 +1,8 @@
 import React from "react";
+import Navbar from '../NavBar/userNavbar'
+import { connect } from "react-redux";
 
-export default class Orders extends React.Component{
+class Orders extends React.Component{
     constructor(){
         super();
         this.state={
@@ -8,10 +10,48 @@ export default class Orders extends React.Component{
         }
     }
     render(){
+        let orderlist=this.props.order;
         return(
             <div className="container">
+                <Navbar/>
                 <h2>Your Orders</h2>
+                <div>
+                    <h4>Order List</h4>
+                    {
+                        Object.keys(orderlist).map(itemkey=>{
+                            return(
+                                <table className="border border-success d-block w-50 mx-auto ml-auto">
+                                    <tr>
+                                        <td className="fs-1 p-5">{parseInt(itemkey)+1}.</td>
+                                        <td className="p-4">
+                                                <img src={orderlist[itemkey].image} alt={orderlist[itemkey].title} height="200px" width="250px" />
+                                            </td>
+                                        <td style={{width:"25rem"}}>
+                                            <ul type="none" className="text-left">
+                                                <li className="fs-2 text-capitalize fw-bolder">{orderlist[itemkey].title}</li>
+                                                <li className="fs-4 text-capitalize">Type: {orderlist[itemkey].category}</li>
+                                                <li className="font-weight-bold">Price: ₹{orderlist[itemkey].price}/{orderlist[itemkey].units}</li>
+                                                <li className="text-capitalize">Quantity: {orderlist[itemkey].count}</li>
+                                                <li className="text-capitalize">About: {orderlist[itemkey].description}</li>
+                                                <li className=" text-capitalize">By {orderlist[itemkey].company}</li>
+                                            </ul>     
+                                        </td>
+                                    </tr>
+                                </table>
+                            )        
+                        })
+                    }
+                </div>
             </div>
         )
     }
 }
+
+const mapStateToProps = state =>{
+    console.log("orderlist:",state.user.orderDetails)
+    return{
+        order: state.user.orderDetails
+    }
+}
+
+export default connect(mapStateToProps)(Orders);

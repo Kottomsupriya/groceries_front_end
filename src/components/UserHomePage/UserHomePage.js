@@ -5,8 +5,10 @@ import * as stockSearchFunction from './stockSearch';
 import fruitsImage from './images/fruits.jpg';
 import vegetablesImage from './images/vegetables.jpg'
 import dairyImage from './images/dairy.jpg'
+import Navbar from '../NavBar/userNavbar'
+import {connect} from 'react-redux';
 
-export default class UserHomepage extends React.Component{
+class UserHomepage extends React.Component{
     constructor(){
         super();
         this.state={
@@ -43,29 +45,17 @@ export default class UserHomepage extends React.Component{
         })
         this.setState({showHome:false});
     }
-    logout=e=>{
-        this.props.history.push('/login')
-    }
-    cart=e=>{
-        this.props.history.push('/shopping-cart')
-    }
-    orders=e=>{
-        this.props.history.push('/your-orders')
-    }
     productPage=(e,list)=>{
-        let data = JSON.stringify(list);
-        localStorage.setItem('productPage',data);
+        //let data = JSON.stringify(list);
+        //localStorage.setItem('productPage',data);
+        this.props.productDetailsDispatcher(list)
         this.props.history.push('/product-page');
     }
     render(){
         let {dataList}=this.state;
         return(
             <div className="container">
-                <div className="text-right">
-                    <button className="btn btn-success" onClick={e=>{this.logout(e)}}>Logout</button>
-                    <button className="btn btn-success" onClick={e=>{this.cart(e)}}>Cart</button>
-                    <button className="btn btn-success" onClick={e=>{this.orders(e)}}>Your Orders</button>
-                </div>
+                <Navbar/>
                 <div className="pt-3">
                     <form onSubmit={e=>this.handleSearch(e)}>
                         <div class="input-group mb-3">
@@ -134,5 +124,20 @@ export default class UserHomepage extends React.Component{
             </div>
         )
     }
-
 }
+
+
+const mapStateToProps = state =>{
+    console.log(state);
+    return{
+        logindata: state.user.userLogin
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return{
+        productDetailsDispatcher:(data)=>dispatch({type:"productDetails",payload:data})
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserHomepage);

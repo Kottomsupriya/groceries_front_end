@@ -1,6 +1,8 @@
 import React from 'react';
+import Navbar from '../NavBar/userNavbar'
+import { connect } from "react-redux";
 
-export default class Payment extends React.Component{
+class Payment extends React.Component{
     constructor(){
         super();
         this.state={
@@ -91,8 +93,11 @@ export default class Payment extends React.Component{
         let {visited} = this.state;
         if(visited.name  && visited.num && visited.cvv && visited.date){
             if(nameErr.length===0 && numErr.length===0 && cvvErr.length===0 && dateErr.length===0){
-                //this.props.history.push('/booking/ticket');
-                alert("Successfully paid")
+                let cart = this.props.cart;
+                this.props.orderDispatcher(cart);
+                this.props.cartDispatcher([]);
+                alert("Successfully paid");
+                this.props.history.push('/order-confirmation');
             }
             else{
                 alert('Please enter Valid fields')
@@ -103,7 +108,7 @@ export default class Payment extends React.Component{
         }
     }
     paymentSummary=()=>{
-        let list = JSON.parse(localStorage.getItem("cartList"));
+        let list = this.props.cart;
         let totalCost = 0;
         for(let i = 0; i < list.length ; i++){
             totalCost = totalCost + (list[i].count * list[i].price);
@@ -127,7 +132,8 @@ export default class Payment extends React.Component{
     render(){
         const {nameErr,numErr,cvvErr,dateErr}=this.state;
         return(
-           <div className="container mt-4">
+           <div className="container">
+               <Navbar/>
                 <div className="row">
                     <div className="col">
                         <h1 className="mt-5">Payment</h1>
@@ -167,3 +173,19 @@ export default class Payment extends React.Component{
         )
     }
 }
+
+const mapStateToProps = state =>{
+    console.log(state.user.cartList)
+    return{
+        cart: state.user.cartList,
+        order: state.user.orderDetails
+    }
+}
+const mapDispatchToProps = (dispatch) =>{
+    return{
+        cartDispatcher: (data)=>dispatch({type:"cartList",payload:data}),
+        orderDispatcher: (data)=>dispatch({type:"orderDetails",payload:data})
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Payment);
