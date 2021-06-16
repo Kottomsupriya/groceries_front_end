@@ -1,7 +1,9 @@
 import React from 'react'
 import * as stockFunction from './vendorStock'
+import Navbar from '../NavBar/vendorNavbar'
+import { connect } from 'react-redux';
 
-export default class VendorHomepage extends React.Component{
+class VendorHomepage extends React.Component{
     constructor(){
         super();
         this.state={
@@ -18,7 +20,7 @@ export default class VendorHomepage extends React.Component{
     showStockList=e=>{
         e.preventDefault();
         let data=this.state.data;
-        data.company = localStorage.getItem('company_name');
+        data.company = this.props.vendor.company;
         this.setState({data:data});
         stockFunction.stockSearch(data).then((res)=>{
             console.log(res.data);
@@ -30,7 +32,7 @@ export default class VendorHomepage extends React.Component{
     }
     editStock=(e,data)=>{
         e.preventDefault();
-        localStorage.setItem("edit_details",JSON.stringify(data));
+        this.props.editDispatcher(data);
         this.props.history.push('/edit-stock');
     }
     deleteStock=(e,data)=>{
@@ -40,14 +42,13 @@ export default class VendorHomepage extends React.Component{
         })
         this.props.history.push('/vendor-home')
         alert("Item Deleted");
+        window.location.reload();
     }
     render(){
         const {stockList}=this.state;
         return(
-            <div className="container w-75">
-                <div className="text-right">
-                    <button onClick={e=>{this.logout(e)}}>Logout</button>
-                </div>
+            <div className="container">
+                <Navbar/>
                 <div className="row pt-5">
                     <div className="col">
                         <div>
@@ -80,7 +81,7 @@ export default class VendorHomepage extends React.Component{
                                                 </ul>     
                                             </td>
                                             <td>
-                                                <button type="button" className="btn btn-success" onClick={e=>this.editStock(e,stockList[itemkey])}>Edit Stock</button>
+                                                <button type="button" className="btn btn-success" onClick={e=>this.editStock(e,stockList[itemkey])}>Edit Stock</button><br/>
                                                 <button type="button" className="btn btn-success mt-4" onClick={e=>this.deleteStock(e,stockList[itemkey])}>Delete Stock</button>
                                             </td>
                                         </tr>
@@ -93,3 +94,19 @@ export default class VendorHomepage extends React.Component{
         )
     }
 }
+
+const mapStateToProps = state =>{
+    console.log(state.vendor.vendorLogin);
+    return{
+        vendor: state.vendor.vendorLogin
+    }
+}
+
+const mapDispatchToProps = (dispatch) =>{
+    return{
+        editDispatcher: (data)=>dispatch({type:"editDetails",payload:data})
+    }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(VendorHomepage);

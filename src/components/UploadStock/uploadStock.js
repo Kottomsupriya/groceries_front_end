@@ -1,8 +1,10 @@
 import React from 'react'
 import './uploadProduct.css'
 import axios from 'axios';
+import Navbar from '../NavBar/vendorNavbar'
+import { connect } from 'react-redux';
 
-export default class UploadProductPage extends React.Component {
+class UploadProductPage extends React.Component {
     constructor(){
         super();
         this.state={
@@ -172,10 +174,10 @@ export default class UploadProductPage extends React.Component {
             default:
                 break;            
         }
-        stockData.company=localStorage.getItem('company_name');
+        stockData.company=this.props.vendor.company;
         this.setState({stockData,[name]:value});
-        this.setState({errors,[name]:value})
-        this.setState({visited,[name]:value})
+        this.setState({errors,[name]:value});
+        this.setState({visited,[name]:value});
     }
     submitData = e=>{
         e.preventDefault();
@@ -201,6 +203,7 @@ export default class UploadProductPage extends React.Component {
         const {errors}=this.state;
         return(
             <div className="container">
+                <Navbar/>
                 <h1 className="p-4">Add Stock</h1>
                 <form onSubmit={e=>this.submitData(e)} className="w-50 ml-auto mr-auto">
                     <div className="form-group row">
@@ -266,4 +269,14 @@ export default class UploadProductPage extends React.Component {
         )
     }
 }
+
+const mapStateToProps = state =>{
+    console.log(state.vendor.vendorLogin);
+    return{
+        vendor: state.vendor.vendorLogin
+    }
+}
+
+
+export default connect(mapStateToProps)(UploadProductPage);
     

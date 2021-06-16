@@ -1,14 +1,14 @@
 import React from 'react'
 import './editStock.css'
 import axios from 'axios';
+import Navbar from '../NavBar/vendorNavbar'
+import { connect } from 'react-redux';
 
-export default class UploadProductPage extends React.Component {
-    constructor(){
-        super();
-        let data=localStorage.getItem('edit_details');
-        let dataList=JSON.parse(data);
+class EditStock extends React.Component {
+    constructor(props){
+        super(props);
         this.state={
-            stockData:dataList,
+            stockData:this.props.edit,
             errors:{
                 image:'',
                 category:'',
@@ -163,11 +163,12 @@ export default class UploadProductPage extends React.Component {
             alert("Enter Valid Details")
         }
     }
-    render() {
+    render(){
         const {errors}=this.state;
         const {stockData}=this.state;
         return(
             <div className="container">
+                <Navbar/>
                 <h1 className="p-4">Edit Stock</h1>
                 <form onSubmit={e=>this.submitData(e)} className="w-50 ml-auto mr-auto">
                     <div className="form-group row">
@@ -233,4 +234,12 @@ export default class UploadProductPage extends React.Component {
         )
     }
 }
-    
+
+const mapStateToProps = state =>{
+    return{
+        edit: state.vendor.editDetails
+    }
+}
+
+
+export default connect(mapStateToProps)(EditStock);

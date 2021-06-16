@@ -2,14 +2,14 @@ import React from "react";
 import delivery from './images/icon-delivery.png'
 import nocontact from './images/No_contact_delivery.png'
 import returns from './images/icon-return.png'
+import Navbar from '../NavBar/userNavbar'
+import { connect } from "react-redux";
 
-export default class ProductPage extends React.Component{
+
+class ProductPage extends React.Component{
     constructor(){
         super();
-        let data = localStorage.getItem('productPage');
-        let dataList = JSON.parse(data);
         this.state={
-            stockData:dataList,
             list:{
                 image:'',
                 category:'',
@@ -27,8 +27,8 @@ export default class ProductPage extends React.Component{
         }
     }
     addItem=(e)=>{
-        let cartList = JSON.parse(localStorage.getItem("cartList"));
-        let stockData = this.state.stockData;
+        let cartList = this.props.cart;
+        let stockData = this.props.product;
         let list = this.state.list;
         let found = false;
         let i;
@@ -55,19 +55,18 @@ export default class ProductPage extends React.Component{
         else{
             cartList[i].count=cartList[i].count+1;
         }
-        localStorage.setItem("cartList",JSON.stringify(cartList));
-        console.log(JSON.parse(localStorage.getItem("cartList")))
+        // localStorage.setItem("cartList",JSON.stringify(cartList));
+        // console.log(JSON.parse(localStorage.getItem("cartList")))
         // console.log(localStorage.getItem("cartList"))
+        this.props.cartDispatcher(cartList);
         this.setState({cartList:cartList});
-        this.setState({currentIndex:i});
         this.setState({count:cartList[i].count});
     }
 
 
     remItem=(e)=>{
-        let cartList = JSON.parse(localStorage.getItem("cartList"));
-        let stockData = this.state.stockData;
-        let list = this.state.list;
+        let cartList = this.props.cart;
+        let stockData = this.props.product;
         let i;
         for(i = 0; i < cartList.length; i++){
             if(cartList[i]._id===stockData._id){
@@ -80,31 +79,31 @@ export default class ProductPage extends React.Component{
 
         }
         else{
-            cartList.splice(i,1);
-            console.log("0 items");
+            cartList.splice(i,1)
             this.setState({count:0});
         }
-        localStorage.setItem("cartList",JSON.stringify(cartList));
-        console.log(JSON.parse(localStorage.getItem("cartList")))
-        // console.log(localStorage.getItem("cartList"))
+        // console.log(localStorage.getItem("cartList"));
+        this.props.cartDispatcher(cartList);
         this.setState({cartList:cartList});
-        this.setState({currentIndex:i});
         
     }
     render(){
-        const {stockData} = this.state;
+        const stockData = this.props.product;
         const {cartList} = this.state;
         const {count} = this.state;
         const {currentIndex} = this.state;
         return(
-            <div className="container w-75">
+            <div className="container">
+                <Navbar/>
                 <div className="mt-5 border border-success">
                     <table>
                         <tr>
                             <td style={{width:"450px"}}><img src={stockData.image} alt={stockData.title} width="300" /></td>
                             <td className="text-left">
-                                <h1 className="text-capitalize pt-3 fw-bolder">{stockData.title} ({stockData.quantity} {stockData.units})</h1>
-                                <h3  className="text-danger text-capitalize">From {stockData.company}</h3>                                <h4 className="text-danger text-capitalize">in {stockData.category}</h4>
+                                <h1 className="text-capitalize pt-3 fw-bolder">{stockData.title}</h1>
+                                <h1 className="text-capitalize fw-bolder">({stockData.quantity} {stockData.units})</h1>
+                                <h3  className="text-danger text-capitalize">From {stockData.company}</h3>                                
+                                <h4 className="text-danger text-capitalize">in {stockData.category}</h4>
                                 <h4>Price: <span className="fs-3 text-danger fw-bolder"> ₹{stockData.price}.00</span></h4>
                                 <h6>Inclusive of all taxes.</h6>
                                 <h4 className="text-success">Stock Available</h4>
@@ -173,3 +172,20 @@ export default class ProductPage extends React.Component{
         )
     }
 }
+
+
+const mapStateToProps = state =>{
+    console.log(state)
+    return{
+        cart: state.user.cartList,
+        product: state.user.productDetails
+    }
+}
+
+const mapDispatchToProps = (dispatch) =>{
+    return{
+        cartDispatcher: (data)=>dispatch({type:"cartList",payload:data})
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductPage);

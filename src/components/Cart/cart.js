@@ -1,28 +1,31 @@
 import React from "react";
+import Navbar from '../NavBar/userNavbar'
+import { connect } from "react-redux";
 
-export default class Cart extends React.Component{
-    constructor(){
-        super();
-        let data= JSON.parse(localStorage.getItem("cartList"));
-        this.state={
-            cartList:data,
-            stockData:[],
-        }
-    }
+class Cart extends React.Component{
+    // constructor(){
+    //     super();
+    //     let data= JSON.parse(localStorage.getItem("cartList"));
+    //     this.state={
+    //         cartList:data,
+    //     }
+    // }
 
     addItem=(e,index)=>{
         e.preventDefault();
-        let cartList = JSON.parse(localStorage.getItem("cartList"));
+        let cartList =  this.props.cart;
         cartList[index].count = cartList[index].count + 1;
-        localStorage.setItem("cartList",JSON.stringify(cartList));
-        console.log(JSON.parse(localStorage.getItem("cartList")))
-        this.setState({cartList:cartList});
-        this.setState({count:cartList[index].count});
+        this.props.cartDispatcher(cartList);
+        window.location.reload();
+        // localStorage.setItem("cartList",JSON.stringify(cartList));
+        // console.log(JSON.parse(localStorage.getItem("cartList")))
+        // this.setState({cartList:cartList});
+        // this.setState({count:cartList[index].count});
     }
 
     totalAmount=()=>{
         let totalCost = 0;
-        let list = JSON.parse(localStorage.getItem("cartList"));
+        let list = this.props.cart;
         for(let i = 0; i < list.length ; i++){
             totalCost = totalCost + (list[i].count * list[i].price);
         }
@@ -30,24 +33,27 @@ export default class Cart extends React.Component{
     }
     remItem=(e,index)=>{
         e.preventDefault();
-        let cartList = JSON.parse(localStorage.getItem("cartList"));
+        let cartList = this.props.cart;
         if(cartList[index].count>1){
             cartList[index].count = cartList[index].count - 1;
         }
         else{
             cartList.splice(index,1);
         }
-        localStorage.setItem("cartList",JSON.stringify(cartList));
-        console.log(JSON.parse(localStorage.getItem("cartList")))
-        this.setState({cartList:cartList});       
+        this.props.cartDispatcher(cartList);
+        window.location.reload();
+        // localStorage.setItem("cartList",JSON.stringify(cartList));
+        // console.log(JSON.parse(localStorage.getItem("cartList")))
+        // this.setState({cartList:cartList});       
     }
     handlePayment=e=>{
         this.props.history.push("/payment");
     }
     render(){
-        const {cartList}=this.state;
+        const cartList=this.props.cart;
         return(
             <div className="container">
+                <Navbar/>
                 <h1>Cart</h1>
                 <div className="mb-3">
                     {
@@ -84,12 +90,31 @@ export default class Cart extends React.Component{
                     })
                     }
                 </div>
-                <div>
+                <div className={cartList.length?"d-block":"d-none"}>
                     <h2>Total Items: <span className="text-danger">{cartList.length}</span></h2>
                     <h2>Total Cost: <span className="text-danger">₹{this.totalAmount()}.00</span></h2>
                     <button className="btn btn-success" style={{height:"70px",width:"250px"}} onClick={e=>{this.handlePayment(e)}}>Proceed to Checkout</button>
+                </div>
+                <div className={cartList.length?"d-none":"d-block"}>
+                    <h1>No items in cart</h1>
                 </div>
             </div>
         )
     }
 }
+
+
+const mapStateToProps = state =>{
+    console.log(state.user.cartList)
+    return{
+        cart: state.user.cartList
+    }
+}
+
+const mapDispatchToProps = (dispatch) =>{
+    return{
+        cartDispatcher: (data)=>dispatch({type:"cartList",payload:data})
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cart);

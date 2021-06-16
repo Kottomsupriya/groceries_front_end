@@ -1,5 +1,7 @@
 import React from 'react';
 import './homepage.css';
+import Navbar from '../NavBar/homeNavbar'
+
 export default class Homepage extends React.Component{
     constructor(){
         super();
@@ -11,6 +13,7 @@ export default class Homepage extends React.Component{
     render(){
         return(
             <div className="container">
+                <Navbar/>
                 <div id="text">GREAT DEALS</div>
                 <div id="text1">100% ORGANIC</div>
                 <div id="text2">CONTACTLESS DELIVERIES</div>
