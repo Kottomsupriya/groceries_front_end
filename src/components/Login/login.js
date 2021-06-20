@@ -126,7 +126,7 @@ class Login extends React.Component{
                                 <label >Password</label>
                                 <input id="password" type="password" name="password" className="form-control" placeholder="Enter Password" onChange={e => this.handleUserPassword(e)} />
                             </div>
-                            <div className="mt-4"><button type="submit" id="button">Login</button></div>
+                            <div className="mt-4"><button type="submit" id="button" className="btn btn-success">Login</button></div>
                         </form>
                         <div className="mt-4">
                             New User? 
@@ -144,7 +144,7 @@ class Login extends React.Component{
                                 <label >Password</label>
                                 <input id="password" type="password" name="password" className="form-control" placeholder="Enter Password" onChange={e => this.handleVendorPassword(e)} />
                             </div>
-                            <div className="mt-4"><button type="submit" id="button">Login</button></div>
+                            <div className="mt-4"><button type="submit" id="button" className="btn btn-success">Login</button></div>
                         </form>
                         <div className="mt-4">
                             New User? 

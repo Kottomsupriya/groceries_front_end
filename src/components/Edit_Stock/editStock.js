@@ -228,7 +228,7 @@ class EditStock extends React.Component {
                             {errors.description.length>0 && <span>*{errors.description}</span>}<br/>
                         </div>
                     </div>
-                    <button type="submit">Submit</button><br/>
+                    <button type="submit" className="btn btn-success">Submit</button><br/>
                 </form>
             </div>            
         )

@@ -15,7 +15,7 @@ class Orders extends React.Component{
             <div className="container">
                 <Navbar/>
                 <h2>Your Orders</h2>
-                <div>
+                <div className={orderlist.length?"d-block":"d-none"}>
                     <h4>Order List</h4>
                     {
                         Object.keys(orderlist).map(itemkey=>{
@@ -41,6 +41,9 @@ class Orders extends React.Component{
                             )        
                         })
                     }
+                </div>
+                <div className={orderlist.length?"d-none":"d-block"}>
+                    <h1>No recent orders</h1>
                 </div>
             </div>
         )

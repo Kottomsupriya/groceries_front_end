@@ -184,7 +184,7 @@ const mapStateToProps = state =>{
 const mapDispatchToProps = (dispatch) =>{
     return{
         cartDispatcher: (data)=>dispatch({type:"cartList",payload:data}),
-        orderDispatcher: (data)=>dispatch({type:"orderDetails",payload:data})
+        orderDispatcher: (data)=>dispatch({type:"orderDetails",payload:data}),
     }
 }
 
