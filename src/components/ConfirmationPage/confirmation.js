@@ -1,10 +1,26 @@
 import React from "react";
 import Navbar from '../NavBar/userNavbar'
 import { connect } from "react-redux";
+import axios from 'axios';
 
 class Confirmation extends React.Component{
+    stockUpdate=()=>{
+        for(let i=0;i<this.props.order.length;i++){
+            //console.log("for:",this.props.order[i]._id,this.props.order[i].title,this.props.order[i].count);
+            let editData = this.props.order[i];
+            editData.totalStock = editData.totalStock-editData.count;
+            console.log(editData);
+            axios.post('http://localhost:4500/stock-update',editData).then((res)=>{
+                console.log(res);
+            })
+        }
+    }
     render(){
         let orderlist=this.props.order;
+        // for(let i=0;i<this.props.order.length;i++){
+        //     console.log("for:",this.props.order[i]._id,this.props.order[i].title,this.props.order[i].count);
+        // }
+        {this.stockUpdate()}
         return(
             <div className="container">
                 <Navbar/>
