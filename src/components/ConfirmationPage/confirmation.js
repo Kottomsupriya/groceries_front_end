@@ -1,10 +1,22 @@
 import React from "react";
 import Navbar from '../NavBar/userNavbar'
 import { connect } from "react-redux";
+import axios from 'axios';
 
 class Confirmation extends React.Component{
+    stockUpdate=()=>{
+        for(let i=0;i<this.props.order.length;i++){
+            let editData = this.props.order[i];
+            editData.totalStock = editData.totalStock-editData.count;
+            console.log(editData);
+            axios.post('http://localhost:4500/stock-update',editData).then((res)=>{
+                console.log(res);
+            });
+        }
+    }
     render(){
         let orderlist=this.props.order;
+        {this.stockUpdate()}
         return(
             <div className="container">
                 <Navbar/>
@@ -44,9 +56,18 @@ class Confirmation extends React.Component{
 
 const mapStateToProps = state =>{
     console.log("orderlist:",state.user.orderDetails)
+    console.log("user state:",state.user);
     return{
-        order: state.user.orderDetails
+        order: state.user.orderDetails,
+        user: state.user.userLogin
     }
 }
 
-export default connect(mapStateToProps)(Confirmation);
+const mapDispatchToProps=(dispatch)=>{
+    return{
+        userLoginDispatcher: (data) => dispatch({type:"userLogin",payload: data}),
+    }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Confirmation);

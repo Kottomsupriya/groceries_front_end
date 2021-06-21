@@ -19,6 +19,9 @@ class Navbar extends React.Component{
                         <div className="h1 text-start fw-bolder" id="logo_header">Grocery Store</div>
                         <ul class="nav justify-content-end">
                             <li class="nav-item">
+                                <a className="btn btn-success" href="/vendor-home" >Home</a>
+                            </li>
+                            <li class="nav-item">
                                 <a className="btn btn-success" href="/login" onClick={e=>this.logout(e)}>Logout</a>
                             </li>
                         </ul>

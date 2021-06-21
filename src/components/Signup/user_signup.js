@@ -1,6 +1,7 @@
 import React from 'react';
 import './signup.css';
 import * as signupFunction from './signupFunction'
+import Navbar from '../NavBar/homeNavbar'
 
 export default class UserSignup extends React.Component{
     constructor(){
@@ -132,6 +133,7 @@ export default class UserSignup extends React.Component{
                     errors.address=''
                     userData.address=value;
                 }
+            break;
             default:
                 break;                
         }
@@ -159,15 +161,16 @@ export default class UserSignup extends React.Component{
     render(){
         const {errors}=this.state;
         return(
-            <div>
-                <div className="container w-25 mt-5 mb-5 border border-success p-5">
+            <div className="container">
+                <Navbar/>
+                <div className="w-50 ml-auto mr-auto mt-5 mb-5 p-5 border border-success text-center">
                     <h3 classname="font-weight-bold">User Sign-Up</h3>
                     <form onSubmit={e => this.submitData(e)}>
                         <div className="form-group">
                             <label  className="text-left">Name</label>
                             <input id="name" type="text" className="form-control" name="name" placeholder="Enter Your Name" onChange={e => this.handleUserdata(e)} />
                             {errors.name.length>0 && <span>*{errors.name}*</span>}
-                        </div> 
+                        </div>
                         <div className="form-group">
                             <label >Email</label>
                             <input id="email" type="text" className="form-control" name="email" placeholder="Enter Your email" onChange={e => this.handleUserdata(e)}/>
@@ -205,7 +208,7 @@ export default class UserSignup extends React.Component{
                             </div>
                             {errors.gender.length>0 && <span>{errors.gender}</span>}
                         </div>
-                        <button type="submit" id="button">Signup</button>
+                        <button type="submit" id="button" className="btn btn-success">Signup</button>
                     </form>
                 </div>
             </div>

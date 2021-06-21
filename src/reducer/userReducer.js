@@ -2,7 +2,7 @@ const initialState = {
     cartList:[],
     userLogin:[],
     productDetails:[],
-    orderDetails:[]
+    orderDetails:[],
 }
 
 export const UserReducer = (state = initialState, action)=>{
