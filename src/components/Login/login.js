@@ -114,7 +114,7 @@ class Login extends React.Component{
         return(
             <div className="container">
                 <Navbar/>
-                <div className="row mt-5">
+                <div className="row mt-5 mb-5">
                     <div className="col m-5 p-5 border border-success">
                         <h3>User Login</h3>
                         <form onSubmit={e => this.submitUserData(e)}>
