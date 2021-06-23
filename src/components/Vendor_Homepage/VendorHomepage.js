@@ -52,12 +52,12 @@ class VendorHomepage extends React.Component{
                 <div className="row pt-5">
                     <div className="col">
                         <div>
-                            <button id="catalogue_button" name="fruits" value="fruits" onClick={e=>this.showStockList(e)}>View Your Stock</button>
+                            <button id="catalogue_button" className="shadow-lg rounded" name="fruits" value="fruits" onClick={e=>this.showStockList(e)}>View Your Stock</button>
                         </div>
                     </div>
                     <div className="col">
                         <div>
-                            <button id="catalogue_button" name="vegetables" value="vegetables" onClick={e=>this.toAddStock(e)}>Add New Stock</button>
+                            <button id="catalogue_button" className="shadow-lg rounded" name="vegetables" value="vegetables" onClick={e=>this.toAddStock(e)}>Add New Stock</button>
                         </div>
                     </div>
                 </div>
@@ -65,7 +65,7 @@ class VendorHomepage extends React.Component{
                         Object.keys(stockList).map(itemkey=>{
                             return(
                                 <div>
-                                    <table className="border border-success d-block w-75 ml-auto mr-auto mt-4">
+                                    <table className="border border-success d-block w-75 ml-auto mr-auto mt-4 shadow-lg rounded">
                                         <tr>
                                             <td className="p-3">
                                                 <img src={stockList[itemkey].image} alt={stockList[itemkey].title} height="200px" width="250px" />

@@ -18,7 +18,7 @@ export default class Homepage extends React.Component{
                 <div id="text1">100% ORGANIC</div>
                 <div id="text2">CONTACTLESS DELIVERIES</div>
                 <div className="mb-5">
-                    <a href="/#" onClick={e=>this.enterSite(e)}><button id="button1">Get Your Groceries Now</button></a>
+                    <a href="/#" onClick={e=>this.enterSite(e)}><button id="button1" className="shadow-lg rounded">Get Your Groceries Now</button></a>
                 </div>
             </div>
         )
