@@ -265,7 +265,7 @@ class EditStock extends React.Component {
                         <div>
                             {errors[formElement.id].length>0 && <span className="text-danger fw-bolder">*{errors[formElement.id]}*</span>}
                             <FormItems key={formElement.id} config={formElement.config} handleChange={e=>this.handleChange(e)} elementValue={formElement.id==="image"?'':stockData[formElement.id]}/>
-                            {formElement.id==='image'?<img src={stockData.image} id="img" alt="" height="200px" className="shadow rounded my-3" />:''}                 
+                            {formElement.id==='image'?<img src={stockData.image} id="img" alt="" height="200px" className="shadow rounded my-3 img-fluid rounded-start" />:''}                 
                         </div>
                         )}
                     <button type="submit" className="btn btn-success">Submit</button><br/>

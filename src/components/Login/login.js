@@ -167,26 +167,13 @@ class Login extends React.Component{
         return(
             <div className="container">
                 <Navbar/>
-                <div className="row mt-5 mb-5">
-                    <div className="col m-5 p-5 border border-success shadow-lg p-3 mb-5 bg-body rounded">
+                <div className="row m-1 mt-5">
+                    <div className="col-sm-6 border shadow-lg p-3 mb-5 bg-body rounded">
                         <h3 className="fw-bolder">USER LOGIN</h3>
                         <form onSubmit={e => this.submitUserData(e)} className="my-4">
-                        {userFormElements && userFormElements.map((formElement)=>
-                            <FormItems key={formElement.id} config={formElement.config} handleChange={e=>this.handleChange(e)} />
-                        )}
-                            {/* <div className="form-group">
-                                <label htmlFor="email">Email</label>
-                                <input id="email" type="text" name="email" className="form-control" placeholder="Enter Your email" onChange={e => this.handleUserEmail(e)} />
-                            </div> */}
-                            {/* <FormItems elementType={this.state.useremail.elementType} elementConfig={this.state.useremail.elementConfig} handleChange={e=>this.handleChange(e)} /> */}
-                            {/* <div className="form-group">
-                                <label >Password</label>
-                                <input id="password" type="password" name="password" className="form-control" placeholder="Enter Password" onChange={e => this.handleUserPassword(e)} />
-                            </div> */}
-                            {/* <FormItems elementType={this.state.userpassword.elementType} elementConfig={this.state.userpassword.elementConfig} handleChange={e=>this.handleChange(e)} /> */}
-                            {/* <div className="mt-4">
-                                <button type="submit" id="button" className="btn btn-success">Login</button>
-                            </div> */}
+                            {userFormElements && userFormElements.map((formElement)=>
+                                <FormItems key={formElement.id} config={formElement.config} handleChange={e=>this.handleChange(e)} />
+                            )}
                             <Button buttonName="Login"/>
                         </form>
                         <div className="mt-4">
@@ -194,14 +181,13 @@ class Login extends React.Component{
                             <a href="/#" onClick={e=>this.toUserSignUp(e)} className="text-blue"> Sign-Up Here</a>
                         </div>
                     </div>
-                    <div className="col m-5 p-5 border border-success shadow-lg p-3 mb-5 bg-body rounded">
+                    <div className="col-sm-6 border shadow-lg p-3 mb-5 bg-body rounded">
                         <h3 className="fw-bolder">VENDOR LOGIN</h3>
                         <form onSubmit={e => this.submitVendorData(e)} className="my-4">
                             {vendorFormElements && vendorFormElements.map((formElement)=>
                                 <FormItems key={formElement.id} config={formElement.config} handleChange={e=>this.handleChange(e)} />
                             )}
                             <Button buttonName="Login"/>
-                            {/* <div className="mt-4"><button type="submit" id="button" className="btn btn-success">Login</button></div> */}
                         </form>
                         <div className="mt-4">
                             New User? 

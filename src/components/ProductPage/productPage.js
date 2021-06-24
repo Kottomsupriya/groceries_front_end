@@ -55,9 +55,6 @@ class ProductPage extends React.Component{
         else{
             cartList[i].count=cartList[i].count+1;
         }
-        // localStorage.setItem("cartList",JSON.stringify(cartList));
-        // console.log(JSON.parse(localStorage.getItem("cartList")))
-        // console.log(localStorage.getItem("cartList"))
         this.props.cartDispatcher(cartList);
         this.setState({cartList:cartList});
         this.setState({count:cartList[i].count});
@@ -82,7 +79,6 @@ class ProductPage extends React.Component{
             cartList.splice(i,1)
             this.setState({count:0});
         }
-        // console.log(localStorage.getItem("cartList"));
         this.props.cartDispatcher(cartList);
         this.setState({cartList:cartList});
         
@@ -95,8 +91,36 @@ class ProductPage extends React.Component{
         return(
             <div className="container">
                 <Navbar/>
-                <div className="mt-5 border border-success">
-                    <table>
+                <div className="mt-5 border shadow rounded">
+                    <div className="card border-white w-75 text-left mx-auto my-auto">
+                        <div className="row">
+                            <div className="col-lg-4 mx-auto my-auto">
+                                <img src={stockData.image} className="img-fluid rounded-start" alt={stockData.title}/>
+                            </div>
+                            <div className="col-lg-4">
+                                <div className="card-body">
+                                    <ul type="none" className="text-left">
+                                        <li className="fs-1 text-capitalize fw-bolder">{stockData.title}</li>
+                                        <li className="fs-1 text-capitalize fw-bolder">({stockData.quantity} {stockData.units})</li>
+                                        <li className="fs-4 text-capitalize text-danger">By {stockData.company}</li>
+                                        <li className="fs-4 text-capitalize text-danger">In {stockData.category}</li>
+                                        <li className="fs-4">Price: <span className="fs-3 text-danger fw-bolder"> ₹{stockData.price}.00</span></li>
+                                        <li className="fs-6">Inclusive of all taxes.</li>
+                                        <li className="fs-4 text-success">Stock Available</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div className="col-lg-4 my-auto mx-auto">
+                                <button className={count===0?"btn btn-success fs-3 fw-bolder my-auto mx-5":"d-none"} onClick={e=>this.addItem(e)} >Add to Cart <i class="fa fa-shopping-cart"></i></button>
+                                <div className={count===0?"d-none":"form-inline mx-5"}>
+                                    <button className="btn btn-success fs-3 fw-bolder my-auto" onClick={e=>this.remItem(e)}>-</button>
+                                    <h1 className="p-2">{count}</h1>
+                                    <button className="btn btn-success fs-3 fw-bolder my-auto" onClick={e=>this.addItem(e)}>+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {/* <table>
                         <tr>
                             <td style={{width:"450px"}}><img src={stockData.image} alt={stockData.title} width="300" /></td>
                             <td className="text-left">
@@ -117,7 +141,7 @@ class ProductPage extends React.Component{
                                 </div>
                             </td>
                         </tr>
-                    </table>   
+                    </table>    */}
                     <table className="w-100 mt-5 mb-5">
                         <tr>
                             <td>

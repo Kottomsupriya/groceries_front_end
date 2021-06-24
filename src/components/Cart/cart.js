@@ -60,31 +60,31 @@ class Cart extends React.Component{
                     Object.keys(cartList).map(itemkey=>{
                         return(
                             <div>
-                                <table className="border border-success d-block w-75 ml-auto mr-auto mt-4">
-                                    <tr>
-                                        <td className="p-3">
-                                            <img src={cartList[itemkey].image} alt={cartList[itemkey].title} height="200px" width="250px" />
-                                        </td>
-                                        <td style={{width:"25rem"}}>
-                                            <ul type="none" className="text-left">
-                                                <li className="fs-2 text-capitalize fw-bolder">{cartList[itemkey].title}</li>
-                                                <li className="fs-4 text-capitalize">Type: {cartList[itemkey].category}</li>
-                                                <li className="font-weight-bold">Price: ₹{cartList[itemkey].price}/{cartList[itemkey].units}</li>
-                                                <li className="text-capitalize">About: {cartList[itemkey].description}</li>
-                                                <li className=" text-capitalize">By {cartList[itemkey].company}</li>
-                                                <li className="text-capitalize fw-bold">{cartList[itemkey].count} X ₹{cartList[itemkey].price}.00 = ₹{cartList[itemkey].count*cartList[itemkey].price}.00</li>
-                                            </ul>     
-                                        </td>
-                                        <td>
-                                            <button className={cartList[itemkey].count===0?"btn btn-success m-5 fs-3 fw-bolder":"d-none"} onClick={e=>this.addItem(e)} style={{height:"65px",width:"250px"}} >Add to Cart <i class="fa fa-shopping-cart" style={{fontSize:"30px"}}></i></button>
-                                            <div className={cartList[itemkey].count===0?"d-none":"form-inline"}>
-                                                <button className="btn btn-success" onClick={e=>this.remItem(e,itemkey)} style={{height:"50px",width:"50px"}}>-</button>
-                                                <h1 className="m-3">{cartList[itemkey].count}</h1>
-                                                <button className="btn btn-success" onClick={e=>this.addItem(e,itemkey)} style={{height:"50px",width:"50px"}}>+</button>
+                                <div className="card mb-3 w-75 border border-success shadow-lg rounded text-left mx-auto my-auto" style={{maxWidth:'720px'}}>
+                                        <div className="row">
+                                            <div className="col-md-4 mx-auto my-auto">
+                                                <img src={cartList[itemkey].image} className="img-fluid rounded-start" alt={cartList[itemkey].title}/>
                                             </div>
-                                        </td>
-                                    </tr>
-                                </table>
+                                            <div className="col-md-4">
+                                                <div className="card-body">
+                                                    <ul type="none" className="text-left">
+                                                        <li className="fs-2 text-capitalize fw-bolder">{cartList[itemkey].title}</li>
+                                                        <li className="fs-4 text-capitalize">Type: {cartList[itemkey].category}</li>
+                                                        <li className="font-weight-bold">Price: ₹{cartList[itemkey].price}/{cartList[itemkey].units}</li>
+                                                        <li className=" text-capitalize">By {cartList[itemkey].company}</li>
+                                                        <li className="text-capitalize fw-bold">{cartList[itemkey].count} X ₹{cartList[itemkey].price}.00 = ₹{cartList[itemkey].count*cartList[itemkey].price}.00</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div className="col-md-4 my-auto mx-auto">
+                                                <div className={cartList[itemkey].count===0?"d-none":"form-inline pl-4"}>
+                                                    <button className="btn btn-success" onClick={e=>this.remItem(e,itemkey)} style={{maxHeight:"50px",maxWidth:"50px"}}>-</button>
+                                                    <h1 className="m-3">{cartList[itemkey].count}</h1>
+                                                    <button className="btn btn-success" onClick={e=>this.addItem(e,itemkey)} style={{maxHeight:"50px",maxWidth:"50px"}}>+</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                             </div>
                         )
                     })

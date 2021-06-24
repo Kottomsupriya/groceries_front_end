@@ -83,31 +83,11 @@ class UserHomepage extends React.Component{
                                                     </ul>
                                                 </div>
                                             </div>
-                                            <div className="col-md-3 my-auto">
-                                                <button type="button" className="btn btn-success fs-5" onClick={e=>this.productPage(e,dataList[itemkey])}>View Product</button>
+                                            <div className="col-md-3 my-auto mx-auto text-center">
+                                                <button type="button" className="btn btn-success fs-5 mb-2" onClick={e=>this.productPage(e,dataList[itemkey])}>View Product</button>
                                             </div>
                                         </div>
                                     </div>
-                                    {/* <table className="border border-success d-block w-75 ml-auto mr-auto mt-4 shadow-lg rounded">
-                                        <tr>
-                                            <td className="p-3 col-sm-4">
-                                                <img src={dataList[itemkey].image} alt={dataList[itemkey].title} height="200px" width="250px" />
-                                            </td>
-                                            <td style={{width:"25rem"}} className="col-sm-5">
-                                                <ul type="none" className="text-left">
-                                                    <li className="fs-2 text-capitalize fw-bolder">{dataList[itemkey].title}</li>
-                                                    <li className="fs-4 text-capitalize">Type: {dataList[itemkey].category}</li>
-                                                    <li className="font-weight-bold">Price: ₹{dataList[itemkey].price}/{dataList[itemkey].units}</li>
-                                                    <li className="text-capitalize">About: {dataList[itemkey].description}</li>
-                                                    <li className=" text-capitalize">By {dataList[itemkey].company}</li>
-                                                    <li className="text-success">Stock Available</li>
-                                                </ul>     
-                                            </td>
-                                            <td className="col-sm-3">
-                                                <button type="button" className="btn btn-success mt-4 fs-5" onClick={e=>this.productPage(e,dataList[itemkey])}>View Product</button>
-                                            </td>
-                                        </tr>
-                                    </table> */}
                                 </div>
                             )
                         })
@@ -119,22 +99,28 @@ class UserHomepage extends React.Component{
                 </div>
                 <div className={this.state.showHome?"d-block":"d-none"}>
                     <div className="row pt-5">
-                        <div className="col">
+                        <div className="col-sm-4">
                             <div className="shadow-lg rounded">
-                                <img src={fruitsImage} style={{display:"block"}} width="400px" height="320px" alt="Fruits" className="mx-auto" />
-                                <button id="catalogue_button" name="fruits" value="fruits" onClick={e=>this.handleCatChange(e)}>Fruits</button>
+                                <img src={fruitsImage} alt="Fruits" className="mx-auto img-fluid rounded-start" style={{maxHeight:"310px"}} />
+                                <div class="d-grid gap-2">
+                                    <button className="btn btn-success d-block" name="fruits" value="fruits" onClick={e=>this.handleCatChange(e)}>Fruits</button>
+                                </div>
                             </div>
                         </div>
-                        <div className="col">
+                        <div className="col-sm-4">
                             <div className="shadow-lg rounded">
-                                <img src={vegetablesImage} style={{display:"block"}} width="400px" height="320px" alt="Vegetables" className="mx-auto"/>
-                                <button id="catalogue_button" name="vegetables" value="vegetables" onClick={e=>this.handleCatChange(e)}>Vegetables</button>
+                                <img src={vegetablesImage} alt="Vegetables" className="mx-auto img-fluid rounded-start" style={{maxHeight:"310px"}}/>
+                                <div class="d-grid gap-2">
+                                    <button className="btn btn-success d-block" name="vegetables" value="vegetables" onClick={e=>this.handleCatChange(e)}>Vegetables</button>
+                                </div>
                             </div>
                         </div>
-                        <div className="col">
+                        <div className="col-sm-4">
                             <div className="shadow-lg rounded">
-                                <img src={dairyImage} style={{display:"block"}} width="400px" height="320px" alt="Dairy" className="mx-auto"/>
-                                <button id="catalogue_button" name="dairy" value="dairy" onClick={e=>this.handleCatChange(e)}>Dairy</button>
+                                <img src={dairyImage} alt="Dairy" className="mx-auto img-fluid rounded-start" style={{maxHeight:"310px"}}/>
+                                <div class="d-grid gap-2">
+                                    <button className="btn btn-success d-block" name="dairy" value="dairy" onClick={e=>this.handleCatChange(e)}>Dairy</button>
+                                </div>
                             </div>
                         </div>
                     </div>

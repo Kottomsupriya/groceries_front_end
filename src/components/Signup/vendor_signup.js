@@ -219,7 +219,7 @@ export default class VendorSignup extends React.Component{
         return(
             <div className="container">
                 <Navbar/>
-                <div className="w-50 ml-auto mr-auto mt-5 mb-5 p-5 border border-success text-center">
+                <div className="mx-auto m-5 p-5 border text-center shadow-lg rounded">
                     <h3 className="fw-bolder pb-3">VENDOR SIGN-UP</h3>
                     <form onSubmit={e => this.submitData(e)}>
                         {formElements && formElements.map((formElement)=>

@@ -236,7 +236,7 @@ export default class UserSignup extends React.Component{
         return(
             <div className="container">
                 <Navbar/>
-                <div className="w-50 mx-auto mt-5 mb-5 p-5 border text-center shadow-lg rounded">
+                <div className="mx-auto m-5 p-5 border text-center shadow-lg rounded">
                     <h3 className="fw-bolder mb-4">USER SIGN-UP</h3>
                     <form onSubmit={e => this.submitData(e)}>
                         {formElements && formElements.map((formElement)=>

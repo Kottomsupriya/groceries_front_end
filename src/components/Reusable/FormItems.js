@@ -9,7 +9,7 @@ export default class FormItems extends React.Component{
         switch(this.props.config.elementType){
             case 'input':
                 input = <div className="form-group row pb-3">
-                            <label htmlFor={this.props.config.elementConfig.id} className="col-sm-2 col-form-label text-right">{this.props.config.elementConfig.name}:</label>
+                            <label htmlFor={this.props.config.elementConfig.id} className="col-sm-2 col-form-label">{this.props.config.elementConfig.name}:</label>
                             <div className="col-sm-10">
                                 <input className="form-control" {...this.props.config.elementConfig} value={this.props.elementValue} onChange={e => this.handleChange(e)} />
                             </div>
@@ -17,7 +17,7 @@ export default class FormItems extends React.Component{
                     break;
                 case 'textarea':
                     input = <div className="form-group row pb-3">
-                                <label htmlFor={this.props.config.elementConfig.id} className="col-sm-2 col-form-label text-right">{this.props.config.elementConfig.name}:</label>
+                                <label htmlFor={this.props.config.elementConfig.id} className="col-sm-2 col-form-label">{this.props.config.elementConfig.name}:</label>
                                 <div className="col-sm-10">
                                     <textarea className="form-control" {...this.props.config.elementConfig} value={this.props.elementValue} onChange={e=>this.handleChange(e)} />
                                 </div>
@@ -25,7 +25,7 @@ export default class FormItems extends React.Component{
                         break;
                 case 'radio':
                     input = <div className="form-group row pb-3">
-                                <label className="col-sm-2 col-form-label text-right text-capitalize" htmlFor={this.props.config.elementConfig.id}>{this.props.config.elementConfig.id}:</label>
+                                <label className="col-sm-2 col-form-label text-capitalize" htmlFor={this.props.config.elementConfig.id}>{this.props.config.elementConfig.id}:</label>
                                 <div className="col-sm-10 text-left" id={this.props.config.elementConfig.id}>
                                     <div className="col-sm-10">
                                         {this.props.config.elementConfig.radios.map((radio)=>

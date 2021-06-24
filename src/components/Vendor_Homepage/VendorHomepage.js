@@ -51,13 +51,13 @@ class VendorHomepage extends React.Component{
                 <Navbar/>
                 <div className="row pt-5">
                     <div className="col">
-                        <div>
-                            <button id="catalogue_button" className="shadow-lg rounded" name="fruits" value="fruits" onClick={e=>this.showStockList(e)}>View Your Stock</button>
+                        <div class="d-grid gap-2">
+                            <button className="btn btn-success shadow-lg rounded" style={{minHeight:"80px"}} name="fruits" value="fruits" onClick={e=>this.showStockList(e)}>View Your Stock</button>
                         </div>
                     </div>
                     <div className="col">
-                        <div>
-                            <button id="catalogue_button" className="shadow-lg rounded" name="vegetables" value="vegetables" onClick={e=>this.toAddStock(e)}>Add New Stock</button>
+                        <div class="d-grid gap-2">
+                            <button className="btn btn-success shadow-lg rounded" style={{minHeight:"80px"}} name="vegetables" value="vegetables" onClick={e=>this.toAddStock(e)}>Add New Stock</button>
                         </div>
                     </div>
                 </div>
@@ -65,27 +65,29 @@ class VendorHomepage extends React.Component{
                         Object.keys(stockList).map(itemkey=>{
                             return(
                                 <div>
-                                    <table className="border border-success d-block w-75 ml-auto mr-auto mt-4 shadow-lg rounded">
-                                        <tr>
-                                            <td className="p-3">
-                                                <img src={stockList[itemkey].image} alt={stockList[itemkey].title} height="200px" width="250px" />
-                                            </td>
-                                            <td style={{width:"25rem"}}>
-                                                <ul type="none" className="text-left">
-                                                    <li className="fs-2 text-capitalize fw-bolder">{stockList[itemkey].title}</li>
-                                                    <li className="fs-4 text-capitalize">Type: {stockList[itemkey].category}</li>
-                                                    <li className="font-weight-bold">Price: ₹{stockList[itemkey].price}/{stockList[itemkey].quantity}{stockList[itemkey].units}</li>
-                                                    <li className="text-capitalize">About: {stockList[itemkey].description}</li>
-                                                    <li className=" text-capitalize">By {stockList[itemkey].company}</li>
-                                                    <li>Stock Available: {stockList[itemkey].totalStock}</li>
-                                                </ul>     
-                                            </td>
-                                            <td>
+                                    <div className="card mb-3 w-75 border border-success shadow-lg rounded text-left mx-auto col-md-6 mt-4" style={{maxWidth:'720px'}}>
+                                        <div className="row">
+                                            <div className="col-md-4 m-auto">
+                                                <img src={stockList[itemkey].image} className="img-fluid rounded-start" alt={stockList[itemkey].title}/>
+                                            </div>
+                                            <div className="col-md-5">
+                                                <div className="card-body">
+                                                    <ul type="none" className="text-left">
+                                                        <li className="fs-2 text-capitalize fw-bolder">{stockList[itemkey].title}</li>
+                                                        <li className="fs-4 text-capitalize">Type: {stockList[itemkey].category}</li>
+                                                        <li className="font-weight-bold">Price: ₹{stockList[itemkey].price}/{stockList[itemkey].units}</li>
+                                                        <li className="text-capitalize">About: {stockList[itemkey].description}</li>
+                                                        <li className=" text-capitalize">By {stockList[itemkey].company}</li>
+                                                        <li className="text-success">Stock Available: {stockList[itemkey].totalStock}</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div className="col-md-3 my-auto mx-auto text-center">
                                                 <button type="button" className="btn btn-success" onClick={e=>this.editStock(e,stockList[itemkey])}>Edit Stock</button><br/>
-                                                <button type="button" className="btn btn-success mt-4" onClick={e=>this.deleteStock(e,stockList[itemkey])}>Delete Stock</button>
-                                            </td>
-                                        </tr>
-                                    </table>
+                                                <button type="button" className="btn btn-success my-4" onClick={e=>this.deleteStock(e,stockList[itemkey])}>Delete Stock</button>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             )
                         })
