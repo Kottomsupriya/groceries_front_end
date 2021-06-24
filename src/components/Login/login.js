@@ -105,6 +105,7 @@ class Login extends React.Component{
             let email=this.state.userEmail;
             let password=this.state.userPassword;
             loginFunction.user_login(email,password).then((res)=>{
+                console.log(res);
                 this.props.userLoginDispatcher(res.data)
                 login=res.data.login;
                 name=res.data.name;
@@ -168,7 +169,7 @@ class Login extends React.Component{
             <div className="container">
                 <Navbar/>
                 <div className="row m-1 mt-5">
-                    <div className="col-sm-6 border shadow-lg p-3 mb-5 bg-body rounded">
+                    <div className="col-md-6 border shadow-lg p-3 mb-5 bg-body rounded">
                         <h3 className="fw-bolder">USER LOGIN</h3>
                         <form onSubmit={e => this.submitUserData(e)} className="my-4">
                             {userFormElements && userFormElements.map((formElement)=>
@@ -181,7 +182,7 @@ class Login extends React.Component{
                             <a href="/#" onClick={e=>this.toUserSignUp(e)} className="text-blue"> Sign-Up Here</a>
                         </div>
                     </div>
-                    <div className="col-sm-6 border shadow-lg p-3 mb-5 bg-body rounded">
+                    <div className="col-md-6 border shadow-lg p-3 mb-5 bg-body rounded">
                         <h3 className="fw-bolder">VENDOR LOGIN</h3>
                         <form onSubmit={e => this.submitVendorData(e)} className="my-4">
                             {vendorFormElements && vendorFormElements.map((formElement)=>
