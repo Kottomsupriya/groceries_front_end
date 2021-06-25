@@ -5,9 +5,9 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
-import { persistStore, persistReducer } from 'redux-persist'
-import { PersistGate } from 'redux-persist/integration/react'
-import storage from 'redux-persist/lib/storage'
+import { persistStore, persistReducer } from 'redux-persist';
+import { PersistGate } from 'redux-persist/integration/react';
+import storage from 'redux-persist/lib/storage';
 import rootReducer from './reducer/index';
 import { composeWithDevTools } from "redux-devtools-extension";
 
