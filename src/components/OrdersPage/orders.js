@@ -16,28 +16,29 @@ class Orders extends React.Component{
                 <Navbar/>
                 <h2>Your Orders</h2>
                 <div className={orderlist.length?"d-block":"d-none"}>
-                    <h4>Order List</h4>
                     {
                         Object.keys(orderlist).map(itemkey=>{
                             return(
-                                <table className="border border-success d-block w-50 mx-auto ml-auto">
-                                    <tr>
-                                        <td className="fs-1 p-5">{parseInt(itemkey)+1}.</td>
-                                        <td className="p-4">
-                                                <img src={orderlist[itemkey].image} alt={orderlist[itemkey].title} height="200px" width="250px" />
-                                            </td>
-                                        <td style={{width:"25rem"}}>
-                                            <ul type="none" className="text-left">
-                                                <li className="fs-2 text-capitalize fw-bolder">{orderlist[itemkey].title}</li>
-                                                <li className="fs-4 text-capitalize">Type: {orderlist[itemkey].category}</li>
-                                                <li className="font-weight-bold">Price: ₹{orderlist[itemkey].price}/{orderlist[itemkey].units}</li>
-                                                <li className="text-capitalize">Quantity: {orderlist[itemkey].count}</li>
-                                                <li className="text-capitalize">About: {orderlist[itemkey].description}</li>
-                                                <li className=" text-capitalize">By {orderlist[itemkey].company}</li>
-                                            </ul>     
-                                        </td>
-                                    </tr>
-                                </table>
+                                <div className="card mb-3 w-75 border shadow-lg rounded text-left mx-auto col-md-6" style={{maxWidth:'720px'}}>
+                                        <div className="row">
+                                            <div className="col-md-1 fs-2">{parseInt(itemkey)+1}.</div>
+                                            <div className="col-md-5 m-auto">
+                                                <img src={orderlist[itemkey].image} className="img-fluid rounded-start" alt={orderlist[itemkey].title} style={{maxHeight:'200px'}}/>
+                                            </div>
+                                            <div className="col-md-6">
+                                                <div className="card-body">
+                                                    <ul type="none" className="text-left">
+                                                        <li className="fs-2 text-capitalize fw-bolder">{orderlist[itemkey].title}</li>
+                                                        <li className="fs-4 text-capitalize">Type: {orderlist[itemkey].category}</li>
+                                                        <li className="font-weight-bold">Price: ₹{orderlist[itemkey].price}/{orderlist[itemkey].units}</li>
+                                                        <li className="text-capitalize">Quantity: {orderlist[itemkey].count}</li>
+                                                        <li className="text-capitalize">About: {orderlist[itemkey].description}</li>
+                                                        <li className=" text-capitalize">By {orderlist[itemkey].company}</li>
+                                                    </ul> 
+                                                </div>
+                                            </div>
+                                        </div>
+                                </div>
                             )        
                         })
                     }

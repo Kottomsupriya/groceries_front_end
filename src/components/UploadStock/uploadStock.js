@@ -3,6 +3,7 @@ import './uploadProduct.css'
 import axios from 'axios';
 import Navbar from '../NavBar/vendorNavbar'
 import { connect } from 'react-redux';
+import FormItems from '../Reusable/FormItems'
 
 class UploadProductPage extends React.Component {
     constructor(){
@@ -38,21 +39,98 @@ class UploadProductPage extends React.Component {
                 units:false, 
                 price:false,
                 description:false,
+            },
+            form:{
+                image:{
+                    elementType:'input',
+                    elementConfig:{
+                        type:'file',
+                        id:'image',
+                        name:'Upload Image',
+                        accept:'.png, .jpg, .jpeg'
+                    }
+                },
+                category:{
+                    elementType:'input',
+                    elementConfig:{
+                        type:'text',
+                        id:'category',
+                        name:'Category',
+                        placeholder:"Enter Category"
+                    }
+                },
+                title:{
+                    elementType:'input',
+                    elementConfig:{
+                        type:'text',
+                        id:'title',
+                        name:'Title',
+                        placeholder:"Enter Title"
+                    }
+                },
+                quantity:{
+                    elementType:'input',
+                    elementConfig:{
+                        type:'text',
+                        id:'quantity',
+                        name:'Quantity',
+                        placeholder:"Enter Quantity"
+                    }
+                },
+                totalStock:{
+                    elementType:'input',
+                    elementConfig:{
+                        type:'text',
+                        id:'totalStock',
+                        name:'totalStock',
+                        placeholder:"Enter Total Stock"
+                    }
+                },
+                units:{
+                    elementType:'input',
+                    elementConfig:{
+                        type:'text',
+                        id:'units',
+                        name:'Units',
+                        placeholder:"Enter Units"
+                    }
+                },
+                price:{
+                    elementType:'input',
+                    elementConfig:{
+                        type:'text',
+                        id:'price',
+                        name:'Price',
+                        placeholder:"Enter Price"
+                    }
+                },
+                description:{
+                    elementType:'textarea',
+                    elementConfig:{
+                        rows:2,
+                        id:'description',
+                        name:'Description',
+                        placeholder:"Enter Description"
+                    }
+                },
             }
         }
     }
 
-    handleStockData=e=>{
+    handleChange=e=>{
         e.preventDefault();
         let visited=this.state.visited;
-        const {name,value}=e.target;
+        const {id,value}=e.target;
         let stockData = this.state.stockData;
         let errors = this.state.errors;
-        switch(name){
+        switch(id){
             case 'image':
                 visited.image=true;
                 if(!value){
+                    const img = document.getElementById('img');
+                    img.src='';
                     errors.image="Please Upload a Image"
+                    stockData.image=''
                 }
                 else{
                     errors.image="";
@@ -175,9 +253,9 @@ class UploadProductPage extends React.Component {
                 break;            
         }
         stockData.company=this.props.vendor.company;
-        this.setState({stockData,[name]:value});
-        this.setState({errors,[name]:value});
-        this.setState({visited,[name]:value});
+        this.setState({stockData:stockData});
+        this.setState({errors:errors});
+        this.setState({visited:visited});
     }
     submitData = e=>{
         e.preventDefault();
@@ -201,68 +279,25 @@ class UploadProductPage extends React.Component {
     }
     render() {
         const {errors}=this.state;
+        let formElements = [];
+        for(let key in this.state.form){
+            formElements.push({
+                id:key,
+                config:this.state.form[key]
+            })
+        }
         return(
             <div className="container">
                 <Navbar/>
                 <h1 className="p-4">Add Stock</h1>
-                <form onSubmit={e=>this.submitData(e)} className="w-50 ml-auto mr-auto">
-                    <div className="form-group row">
-                        <label for="file" class="col-sm-2 col-form-label">Upload</label>
-                        <div className="col-sm-10">
-                            <input type="file" className="form-control" id="image" name="image" accept=".png, .jpg, .jpeg" onChange={e=>this.handleStockData(e)}/>
-                            {errors.image.length>0 && <span>*{errors.image}</span>}<br/>
+                <form onSubmit={e=>this.submitData(e)} className="w-50 mx-auto">
+                {formElements && formElements.map((formElement)=>
+                        <div>
+                            {errors[formElement.id].length>0 && <span className="text-danger fw-bolder">*{errors[formElement.id]}*</span>}
+                            <FormItems key={formElement.id} config={formElement.config} handleChange={e=>this.handleChange(e)} />
+                            {formElement.id==='image'?<img src="" id="img" alt="" height="200px" className="shadow rounded my-3 img-fluid rounded-start" />:''}                 
                         </div>
-                    </div>
-                    <img src="" id="img" alt="" height="200px"/><br/>
-                    <div className="form-group row">
-                        <label for="category" class="col-sm-2 col-form-label">Category</label>
-                        <div className="col-sm-10">
-                            <input type="text" className="form-control" id="category" name="category" onChange={e => this.handleStockData(e)}/>
-                            {errors.category.length>0 && <span>*{errors.category}</span>}<br/>
-                        </div>
-                    </div>
-                    <div className="form-group row">
-                        <label for="title" class="col-sm-2 col-form-label">Title</label>
-                        <div className="col-sm-10">
-                            <input type="text" className="form-control" id="title" name="title" onChange={e => this.handleStockData(e)}/>
-                            {errors.title.length>0 && <span>*{errors.title}</span>}<br/>
-                        </div>
-                    </div>
-                    <div className="form-group row">
-                        <label for="quantity" class="col-sm-2 col-form-label">Quantity</label>
-                        <div className="col-sm-10">
-                            <input type="text" className="form-control" id="quantity" name="quantity" onChange={e => this.handleStockData(e)}/>
-                            {errors.quantity.length>0 && <span>*{errors.quantity}</span>}<br/>
-                        </div>
-                    </div>
-                    <div className="form-group row">
-                        <label for="totalStock" class="col-sm-2 col-form-label">Total Stock</label>
-                        <div className="col-sm-10">
-                            <input type="text" className="form-control" id="totalStock" name="totalStock" onChange={e => this.handleStockData(e)}/>
-                            {errors.totalStock.length>0 && <span>*{errors.totalStock}</span>}<br/>
-                        </div>
-                    </div>
-                    <div className="form-group row">
-                        <label for="units" class="col-sm-2 col-form-label">Units</label>
-                        <div className="col-sm-10">
-                            <input type="text" className="form-control" id="units" name="units" onChange={e => this.handleStockData(e)}/>
-                            {errors.units.length>0 && <span>*{errors.units}</span>}<br/>
-                        </div>
-                    </div>
-                    <div className="form-group row">
-                        <label for="price" class="col-sm-2 col-form-label">Price</label>
-                        <div className="col-sm-10">
-                            <input type="text" className="form-control" id="price" name="price" onChange={e => this.handleStockData(e)}/>
-                            {errors.price.length>0 && <span>*{errors.price}</span>}<br/>
-                        </div>
-                    </div>
-                    <div className="form-group row">
-                        <label for="description" class="col-sm-2 col-form-label">Description</label>
-                        <div className="col-sm-10">
-                            <textarea type="text" className="form-control" id="description" name="description" onChange={e => this.handleStockData(e)}/>
-                            {errors.description.length>0 && <span>*{errors.description}</span>}<br/>
-                        </div>
-                    </div>
+                        )}
                     <button type="submit" className="btn btn-success">Submit</button><br/>
                 </form>
             </div>            

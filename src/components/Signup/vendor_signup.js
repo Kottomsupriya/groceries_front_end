@@ -2,6 +2,7 @@ import React from 'react';
 import './signup.css';
 import * as signupFunction from './signupFunction'
 import Navbar from '../NavBar/homeNavbar'
+import FormItems from '../Reusable/FormItems'
 
 export default class VendorSignup extends React.Component{
     constructor(){
@@ -30,16 +31,72 @@ export default class VendorSignup extends React.Component{
                 company:false,
                 password:false,
                 address:false
+            },
+            form:{
+                name:{
+                    elementType:'input',
+                    elementConfig:{
+                        type:'text',
+                        id:'name',
+                        name:'Name',
+                        placeholder:"Enter Your Name"
+                    }
+                },
+                email:{
+                    elementType:'input',
+                    elementConfig:{
+                        type:'text',
+                        id:'email',
+                        name:'Email',
+                        placeholder:"Enter Your email"
+                    }
+                },
+                mobile:{
+                    elementType:'input',
+                    elementConfig:{
+                        type:'text',
+                        id:'mobile',
+                        name:'Mobile',
+                        placeholder:"Enter Your Mobile"
+                    }
+                },
+                company:{
+                    elementType:'input',
+                    elementConfig:{
+                        type:'text',
+                        id:'company',
+                        name:'Company Name',
+                        placeholder:"Enter Your Company Name"
+                    }
+                },
+                password:{
+                    elementType:'input',
+                    elementConfig:{
+                        type:'password',
+                        id:'password',
+                        name:'Password',
+                        placeholder:"Enter Your Password"
+                    }
+                },
+                address:{
+                    elementType:'textarea',
+                    elementConfig:{
+                        rows: 2,
+                        id:'address',
+                        name:'Address',
+                        placeholder:"Enter Your Address"
+                    }
+                },
             }
         }
     }
-    handleUserdata=e=>{
+    handleChange=e=>{
         e.preventDefault();
         let visited=this.state.visited;
-        const {name,value}=e.target;
+        const {id,value}=e.target;
         let userData = this.state.userData;
         let errors = this.state.errors;
-        switch(name){
+        switch(id){
             case 'name':
                 visited.name=true;
                 if(value.length>0){
@@ -129,9 +186,9 @@ export default class VendorSignup extends React.Component{
             default:
                 break;                
         }
-        this.setState({userData,[name]:value});
-        this.setState({errors,[name]:value})
-        this.setState({visited,[name]:value})
+        this.setState({userData:userData});
+        this.setState({errors:errors});
+        this.setState({visited:visited});
     }
     submitData = e=>{
         e.preventDefault();
@@ -152,44 +209,27 @@ export default class VendorSignup extends React.Component{
     }
     render(){
         const {errors}=this.state;
+        let formElements = [];
+        for(let key in this.state.form){
+            formElements.push({
+                id:key,
+                config:this.state.form[key]
+            })
+        }
         return(
             <div className="container">
                 <Navbar/>
-                <div className="w-50 ml-auto mr-auto mt-5 mb-5 p-5 border border-success text-center">
-                <h3 classname="font-weight-bold">Vendor Sign-Up</h3>
-                <form onSubmit={e => this.submitData(e)}>
-                    <div className="form-group">
-                        <label  className="text-left">Name</label>
-                        <input id="name" type="text" className="form-control" name="name" placeholder="Enter Your Name" onChange={e => this.handleUserdata(e)} />
-                        {errors.name.length>0 && <span>*{errors.name}*</span>}
-                    </div> 
-                    <div className="form-group">
-                        <label >Email</label>
-                        <input id="email" type="text" className="form-control" name="email" placeholder="Enter Your email" onChange={e => this.handleUserdata(e)}/>
-                        {errors.email.length>0 && <span>*{errors.email}*</span>}
-                    </div>
-                    <div className="form-group">
-                        <label >Mobile Number</label>
-                        <input id="mobile" type="text" className="form-control" name="mobile" placeholder="Enter number"onChange={e => this.handleUserdata(e)} />
-                        {errors.mobile.length>0 && <span>*{errors.mobile}*</span>}
-                    </div>
-                    <div className="form-group">
-                        <label  className="text-left">Company Name</label>
-                        <input id="company" type="text" className="form-control" name="company" placeholder="Enter Your Company" onChange={e => this.handleUserdata(e)} />
-                        {errors.company.length>0 && <span>*{errors.company}*</span>}
-                    </div> 
-                    <div className="form-group">
-                        <label >Password</label>
-                        <input id="password" type="password" className="form-control" name="password" placeholder="Enter Password" onChange={e => this.handleUserdata(e)} />
-                        {errors.password.length>0 && <span>*{errors.password}*</span>}
-                    </div>
-                    <div className="form-group">
-                        <label>Address</label>
-                        <textarea class="form-control" id="address" name="address" placeholder="Enter Address" rows="2" onChange={e => this.handleUserdata(e)}></textarea>
-                        {errors.address.length>0 && <span>*{errors.address}*</span>}
-                    </div>
-                    <button type="submit" id="button" className="btn btn-success">Signup</button>
-                </form>
+                <div className="mx-auto m-5 p-5 border text-center shadow-lg rounded">
+                    <h3 className="fw-bolder pb-3">VENDOR SIGN-UP</h3>
+                    <form onSubmit={e => this.submitData(e)}>
+                        {formElements && formElements.map((formElement)=>
+                            <div>
+                                {errors[formElement.id].length>0 && <span className="text-danger fw-bolder">*{errors[formElement.id]}*</span>}
+                                <FormItems key={formElement.id} config={formElement.config} handleChange={e=>this.handleChange(e)} errors={errors}/>                  
+                            </div>
+                            )}
+                        <button type="submit" id="button" className="btn btn-success">Signup</button>
+                    </form>
                 </div>
             </div>
         )

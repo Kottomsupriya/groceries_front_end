@@ -12,13 +12,10 @@ class Navbar extends React.Component{
     }
     render(){
         return(
-             <div>
-                <nav className="navbar navbar-expand-lg bg-success">
+            <div>
+                <nav className="navbar bg-success shadow rounded">
                     <div className="container text-white">
-                        <div className="h1 text-start fw-bolder" id="logo_header">Grocery Store</div>
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
-                           <span class="navbar-toggler-icon"></span>
-                         </button>
+                        <div className="h1 text-start fw-bolder" id="logo">GROCERY STORE</div>
                         <ul class="nav justify-content-end">
                             <li class="nav-item">
                                 <a className="btn btn-success" href="/user-home" >Home</a>
@@ -34,11 +31,8 @@ class Navbar extends React.Component{
                             </li>
                         </ul>
                     </div>
-                    
                 </nav>
-            </div> 
-
-         
+            </div>
         )
     }
 }

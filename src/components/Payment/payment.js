@@ -114,16 +114,16 @@ class Payment extends React.Component{
             totalCost = totalCost + (list[i].count * list[i].price);
         }
             return(
-                <div className="p-5 mt-4 text-center">
+                <div className="p-4 mt-4 text-center">
                     <h3 className="text-success">Payment Summary</h3>
                     <table className="mx-auto text-right text-white bg-success border border-success fs-4">
                         <tr>
-                            <td className="pr-5 pl-5 pt-4 pb-4">Total Items: </td>
-                            <td className="pr-5 pl-5 pt-4 pb-4">{list.length}</td>
+                            <td className="p-4">Total Items: </td>
+                            <td className="p-4">{list.length}</td>
                         </tr>
                         <tr>
-                            <td className="pr-5 pl-5 pt-4 pb-4">Total Amount: </td>
-                            <td className="pr-5 pl-5 pt-4 pb-4">{totalCost}</td>
+                            <td className="p-4">Total Amount: </td>
+                            <td className="p-4">{totalCost}</td>
                         </tr>
                     </table>
                 </div>
@@ -135,7 +135,10 @@ class Payment extends React.Component{
            <div className="container">
                <Navbar/>
                 <div className="row">
-                    <div className="col">
+                    <div className="col-md-6">
+                        {this.paymentSummary()}
+                    </div>
+                    <div className="col-md-6">
                         <h1 className="mt-5">Payment</h1>
                         <form className="form-group" onSubmit={e=>this.handleSubmit(e)}>
                             <table className="mx-auto text-left mt-1">
@@ -164,9 +167,6 @@ class Payment extends React.Component{
                                 </tr>
                             </table>
                         </form>
-                    </div>
-                    <div className="col">
-                        {this.paymentSummary()}
                     </div>
                 </div>
            </div>

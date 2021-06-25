@@ -1,16 +1,4 @@
-#catalogue_button{
-    color:white;
-    display: block;
-    width: 100%;
-    border: none;
-    background-color: #1f7a1f;
-    padding: 30px 30px;
-    font-size: 30px;
-    cursor: pointer;
-    text-align: center;
-    font-weight: bold;
-}
 #searchBox{
-    height: 50px;
+    height: 60px;
     font-size: 24px;
 }
