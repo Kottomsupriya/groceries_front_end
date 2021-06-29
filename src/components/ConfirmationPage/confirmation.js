@@ -6,6 +6,7 @@ import axios from "axios"
 function Confirmation(props){
       let orderlist=props.order;
 //function Confirmation(props){
+
         return(
             <div className="container">
                 <Navbar/>
