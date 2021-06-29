@@ -1,51 +1,53 @@
 import React from "react";
+import Input from './input'
+import Textarea from './textarea'
+import Radio from './radio'
 
-export default class FormItems extends React.Component{
-    render(){
-        let input;
-        const {elementType,elementConfig}=this.props.config;
-        const {elementValue}=this.props;
-        switch(elementType){
-            case 'input':
-                input = <div className="form-group row pb-3">
-                            <label htmlFor={elementConfig.id} className="col-sm-2 col-form-label">{elementConfig.name}:</label>
-                            <div className="col-sm-10">
-                                <input className="form-control" {...elementConfig} value={elementValue} />
-                            </div>
-                        </div>
+export default function FormItems(props){
+    let input;
+    const {elementType,elementConfig}=props.config;
+    const {elementValue}=props;
+    switch(elementType){
+        case 'input':
+                input = <Input config={elementConfig} elementValue={elementValue}/>
+                break;
+            case 'textarea':
+                input = <Textarea config={elementConfig} elementValue={elementValue}/>
                     break;
-                case 'textarea':
-                    input = <div className="form-group row pb-3">
-                                <label htmlFor={elementConfig.id} className="col-sm-2 col-form-label">{elementConfig.name}:</label>
-                                <div className="col-sm-10">
-                                    <textarea className="form-control" {...elementConfig} value={elementValue} />
-                                </div>
-                            </div>
+            case 'radio':
+                input = <Radio config={elementConfig} />
                         break;
-                case 'radio':
-                    input = <div className="form-group row pb-3">
-                                <label className="col-sm-2 col-form-label text-capitalize" htmlFor={elementConfig.id}>{elementConfig.id}:</label>
-                                <div className="col-sm-10 text-left" id={elementConfig.id}>
-                                    <div className="col-sm-10">
-                                        {elementConfig.radios.map((radio)=>
-                                        <div key={radio.id}>
-                                            <input type="radio" {...radio}  className="form-check-input"/>
-                                            <label className="form-check-label text-capitalize" htmlFor={radio.id}>{radio.value}</label>
-                                        </div> 
-                                        )   
-                                    }
-                                    </div>
-                                </div>
-                            </div>
-                            break;
-                default:
-                    break;
-        }
-        return(
-            <div>
-                {input}
-            </div>
-
-        )
+            default:
+                break;
     }
+    return(
+        <div>{input}</div>
+    );
 }
+
+// export default class FormItems extends React.Component{
+//     render(){
+//         let input;
+//         const {elementType,elementConfig}=this.props.config;
+//         const {elementValue}=this.props;
+//         switch(elementType){
+//             case 'input':
+//                 input = <Input config={elementConfig} elementValue={elementValue}/>
+//                     break;
+//                 case 'textarea':
+//                     input = <Textarea config={elementConfig} elementValue={elementValue}/>
+//                         break;
+//                 case 'radio':
+//                     input = <Radio config={elementConfig} />
+//                             break;
+//                 default:
+//                     break;
+//         }
+//         return(
+//             <div>
+//                 {input}
+//             </div>
+
+//         )
+//     }
+// }

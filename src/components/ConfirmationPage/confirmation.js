@@ -1,8 +1,6 @@
 import React from "react";
 import Navbar from '../NavBar/userNavbar'
 import { connect } from "react-redux";
-import axios from 'axios';
-
 class Confirmation extends React.Component{
     stockUpdate=()=>{
         for(let i=0;i<this.props.order.length;i++){
@@ -17,6 +15,8 @@ class Confirmation extends React.Component{
    render(){
       let orderlist=this.props.order;
         {this.stockUpdate()}
+function Confirmation(props){
+        let orderlist=props.order;
         return(
             <div className="container">
                 <Navbar/>
@@ -54,7 +54,6 @@ class Confirmation extends React.Component{
             </div>
         )
     }
-}
 
 
 const mapStateToProps = state =>{
@@ -73,4 +72,4 @@ const mapDispatchToProps=(dispatch)=>{
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(Confirmation);
+export default connect(mapStateToProps, mapDispatchToProps)(Confirmation)

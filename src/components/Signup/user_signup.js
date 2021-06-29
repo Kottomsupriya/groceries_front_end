@@ -3,6 +3,7 @@ import './signup.css';
 import * as signupFunction from './signupFunction'
 import Navbar from '../NavBar/homeNavbar'
 import FormItems from '../Reusable/FormItems'
+import Input from '../Reusable/input';
 
 export default class UserSignup extends React.Component{
     constructor(){
