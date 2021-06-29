@@ -42,7 +42,8 @@ export default class UserSignup extends React.Component{
                         type:'text',
                         id:'name',
                         name:'Name',
-                        placeholder:"Enter Your Name"
+                        placeholder:"Enter Your Name",
+                        onChange:e=>this.handleChange(e)
                     }
                 },
                 email:{
@@ -51,7 +52,8 @@ export default class UserSignup extends React.Component{
                         type:'text',
                         id:'email',
                         name:'Email',
-                        placeholder:"Enter Your email"
+                        placeholder:"Enter Your email",
+                        onChange:e=>this.handleChange(e)
                     }
                 },
                 mobile:{
@@ -60,7 +62,8 @@ export default class UserSignup extends React.Component{
                         type:'text',
                         id:'mobile',
                         name:'Mobile',
-                        placeholder:"Enter Your Mobile"
+                        placeholder:"Enter Your Mobile",
+                        onChange:e=>this.handleChange(e)
                     }
                 },
                 password:{
@@ -69,7 +72,8 @@ export default class UserSignup extends React.Component{
                         type:'password',
                         id:'password',
                         name:'Password',
-                        placeholder:"Enter Your Password"
+                        placeholder:"Enter Your Password",
+                        onChange:e=>this.handleChange(e)
                     }
                 },
                 address:{
@@ -78,7 +82,8 @@ export default class UserSignup extends React.Component{
                         rows: 2,
                         id:'address',
                         name:'Address',
-                        placeholder:"Enter Your Address"
+                        placeholder:"Enter Your Address",
+                        onChange:e=>this.handleChange(e)
                     }
                 },
                 dob:{
@@ -87,13 +92,17 @@ export default class UserSignup extends React.Component{
                         type:'text',
                         id:'dob',
                         name:'Date of Birth',
-                        placeholder:"DD-MM-YYYY"
+                        placeholder:"DD-MM-YYYY",
+                        onChange:e=>this.handleChange(e)
                     }
                 },
                 gender:{
                     elementType:'radio',
                     elementConfig:{
-                        radios:[{id:'male',value:'male',name:'gender'},{id:'female',value:'female',name:'gender'}],
+                        radios:[
+                            {id:'male',value:'male',name:'gender',onChange:e=>this.handleChange(e)},
+                            {id:'female',value:'female',name:'gender',onChange:e=>this.handleChange(e)}
+                        ],
                         id:'gender',
                     }
                 }
@@ -198,7 +207,6 @@ export default class UserSignup extends React.Component{
                     errors.address=''
                     userData.address=value;
                 }
-                console.log(this.state.visited);
             break;
             default:
                 break;                
@@ -242,10 +250,9 @@ export default class UserSignup extends React.Component{
                         {formElements && formElements.map((formElement)=>
                         <div>
                             {errors[formElement.id].length>0 && <span className="text-danger fw-bolder">*{errors[formElement.id]}*</span>}
-                            <FormItems key={formElement.id} config={formElement.config} handleChange={e=>this.handleChange(e)} errors={errors}/>                  
+                            <FormItems key={formElement.id} config={formElement.config} />                  
                         </div>
                         )}
-                        
                         <button type="submit" id="button" className="btn btn-success">Signup</button>
                     </form>
                 </div>

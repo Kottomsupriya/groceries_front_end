@@ -47,7 +47,8 @@ class UploadProductPage extends React.Component {
                         type:'file',
                         id:'image',
                         name:'Upload Image',
-                        accept:'.png, .jpg, .jpeg'
+                        accept:'.png, .jpg, .jpeg',
+                        onChange:e=>this.handleChange(e)
                     }
                 },
                 category:{
@@ -56,7 +57,8 @@ class UploadProductPage extends React.Component {
                         type:'text',
                         id:'category',
                         name:'Category',
-                        placeholder:"Enter Category"
+                        placeholder:"Enter Category",
+                        onChange:e=>this.handleChange(e)
                     }
                 },
                 title:{
@@ -65,7 +67,8 @@ class UploadProductPage extends React.Component {
                         type:'text',
                         id:'title',
                         name:'Title',
-                        placeholder:"Enter Title"
+                        placeholder:"Enter Title",
+                        onChange:e=>this.handleChange(e)
                     }
                 },
                 quantity:{
@@ -74,7 +77,8 @@ class UploadProductPage extends React.Component {
                         type:'text',
                         id:'quantity',
                         name:'Quantity',
-                        placeholder:"Enter Quantity"
+                        placeholder:"Enter Quantity",
+                        onChange:e=>this.handleChange(e)
                     }
                 },
                 totalStock:{
@@ -83,7 +87,8 @@ class UploadProductPage extends React.Component {
                         type:'text',
                         id:'totalStock',
                         name:'totalStock',
-                        placeholder:"Enter Total Stock"
+                        placeholder:"Enter Total Stock",
+                        onChange:e=>this.handleChange(e)
                     }
                 },
                 units:{
@@ -92,7 +97,8 @@ class UploadProductPage extends React.Component {
                         type:'text',
                         id:'units',
                         name:'Units',
-                        placeholder:"Enter Units"
+                        placeholder:"Enter Units",
+                        onChange:e=>this.handleChange(e)
                     }
                 },
                 price:{
@@ -101,7 +107,8 @@ class UploadProductPage extends React.Component {
                         type:'text',
                         id:'price',
                         name:'Price',
-                        placeholder:"Enter Price"
+                        placeholder:"Enter Price",
+                        onChange:e=>this.handleChange(e)
                     }
                 },
                 description:{
@@ -110,7 +117,8 @@ class UploadProductPage extends React.Component {
                         rows:2,
                         id:'description',
                         name:'Description',
-                        placeholder:"Enter Description"
+                        placeholder:"Enter Description",
+                        onChange:e=>this.handleChange(e)
                     }
                 },
             }
@@ -294,7 +302,7 @@ class UploadProductPage extends React.Component {
                 {formElements && formElements.map((formElement)=>
                         <div>
                             {errors[formElement.id].length>0 && <span className="text-danger fw-bolder">*{errors[formElement.id]}*</span>}
-                            <FormItems key={formElement.id} config={formElement.config} handleChange={e=>this.handleChange(e)} />
+                            <FormItems key={formElement.id} config={formElement.config} />
                             {formElement.id==='image'?<img src="" id="img" alt="" height="200px" className="shadow rounded my-3 img-fluid rounded-start" />:''}                 
                         </div>
                         )}

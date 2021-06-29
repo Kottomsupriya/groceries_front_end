@@ -27,7 +27,8 @@ class Login extends React.Component{
                         type:'text',
                         id:'userEmail',
                         name:'Email',
-                        placeholder:"Enter Your email"
+                        placeholder:"Enter Your email",
+                        onChange:e=>this.handleChange(e)
                     }
                 },
                 userpassword:{
@@ -36,7 +37,8 @@ class Login extends React.Component{
                         type:'password',
                         id:'userPassword',
                         name:'Password',
-                        placeholder:"Enter Your password"
+                        placeholder:"Enter Your password",
+                        onChange:e=>this.handleChange(e)
                     }
                 }
             },
@@ -47,7 +49,8 @@ class Login extends React.Component{
                         type:'text',
                         id:'vendorEmail',
                         name:'Email',
-                        placeholder:"Enter Your email"
+                        placeholder:"Enter Your email",
+                        onChange:e=>this.handleChange(e)
                     }
                 },
                 vendorpassword:{
@@ -56,7 +59,8 @@ class Login extends React.Component{
                         type:'password',
                         id:'vendorPassword',
                         name:'Password',
-                        placeholder:"Enter Your password"
+                        placeholder:"Enter Your password",
+                        onChange:e=>this.handleChange(e)
                     }
                 }
             }
@@ -173,7 +177,7 @@ class Login extends React.Component{
                         <h3 className="fw-bolder">USER LOGIN</h3>
                         <form onSubmit={e => this.submitUserData(e)} className="my-4">
                             {userFormElements && userFormElements.map((formElement)=>
-                                <FormItems key={formElement.id} config={formElement.config} handleChange={e=>this.handleChange(e)} />
+                                <FormItems key={formElement.id} config={formElement.config} />
                             )}
                             <Button buttonName="Login"/>
                         </form>
@@ -186,7 +190,7 @@ class Login extends React.Component{
                         <h3 className="fw-bolder">VENDOR LOGIN</h3>
                         <form onSubmit={e => this.submitVendorData(e)} className="my-4">
                             {vendorFormElements && vendorFormElements.map((formElement)=>
-                                <FormItems key={formElement.id} config={formElement.config} handleChange={e=>this.handleChange(e)} />
+                                <FormItems key={formElement.id} config={formElement.config} />
                             )}
                             <Button buttonName="Login"/>
                         </form>
