@@ -83,12 +83,13 @@ class UserHomepage extends React.Component{
                                                         <li className="font-weight-bold">Price: ₹{dataList[itemkey].price}/{dataList[itemkey].units}</li>
                                                         <li className="text-capitalize">About: {dataList[itemkey].description}</li>
                                                         <li className=" text-capitalize">By {dataList[itemkey].company}</li>
-                                                        <li className="text-success">Stock Available</li>
+                                                        <li className={dataList[itemkey].totalStock?"text-success":"d-none"}>Stock Available</li>
+                                                        <li className={dataList[itemkey].totalStock?"d-none":"text-danger"}>Stock Unavailable</li>
                                                     </ul>
                                                 </div>
                                             </div>
                                             <div className="col-md-3 my-auto mx-auto text-center">
-                                                <button type="button" className="btn btn-success fs-5 mb-2" onClick={e=>this.productPage(e,dataList[itemkey])}>View Product</button>
+                                                <button type="button" className={dataList[itemkey].totalStock?"btn btn-success fs-5 mb-2":"d-none"} onClick={e=>this.productPage(e,dataList[itemkey])}>View Product</button>
                                             </div>
                                         </div>
                                     </div>

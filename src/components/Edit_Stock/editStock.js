@@ -27,7 +27,8 @@ class EditStock extends React.Component {
                         type:'file',
                         id:'image',
                         name:'Upload Image',
-                        accept:'.png, .jpg, .jpeg'
+                        accept:'.png, .jpg, .jpeg',
+                        onChange:e=>this.handleChange(e)
                     },
                     elementValue:''
                 },
@@ -37,7 +38,8 @@ class EditStock extends React.Component {
                         type:'text',
                         id:'category',
                         name:'Category',
-                        placeholder:"Enter Category"
+                        placeholder:"Enter Category",
+                        onChange:e=>this.handleChange(e)
                     },
                     elementValue:''
                 },
@@ -47,7 +49,8 @@ class EditStock extends React.Component {
                         type:'text',
                         id:'title',
                         name:'Title',
-                        placeholder:"Enter Title"
+                        placeholder:"Enter Title",
+                        onChange:e=>this.handleChange(e)
                     },
                     elementValue:''
                 },
@@ -57,7 +60,8 @@ class EditStock extends React.Component {
                         type:'text',
                         id:'quantity',
                         name:'Quantity',
-                        placeholder:"Enter Quantity"
+                        placeholder:"Enter Quantity",
+                        onChange:e=>this.handleChange(e)
                     },
                     elementValue:0
                 },
@@ -67,7 +71,8 @@ class EditStock extends React.Component {
                         type:'text',
                         id:'totalStock',
                         name:'totalStock',
-                        placeholder:"Enter Total Stock"
+                        placeholder:"Enter Total Stock",
+                        onChange:e=>this.handleChange(e)
                     },
                     elementValue:0
                 },
@@ -77,7 +82,8 @@ class EditStock extends React.Component {
                         type:'text',
                         id:'units',
                         name:'Units',
-                        placeholder:"Enter Units"
+                        placeholder:"Enter Units",
+                        onChange:e=>this.handleChange(e)
                     },
                     elementValue:''
                 },
@@ -87,7 +93,8 @@ class EditStock extends React.Component {
                         type:'text',
                         id:'price',
                         name:'Price',
-                        placeholder:"Enter Price"
+                        placeholder:"Enter Price",
+                        onChange:e=>this.handleChange(e)
                     },
                     elementValue:0
                 },
@@ -97,7 +104,8 @@ class EditStock extends React.Component {
                         rows:2,
                         id:'description',
                         name:'Description',
-                        placeholder:"Enter Description"
+                        placeholder:"Enter Description",
+                        onChange:e=>this.handleChange(e)
                     },
                     elementValue:''
                 },
@@ -264,7 +272,7 @@ class EditStock extends React.Component {
                     {formElements && formElements.map((formElement)=>
                         <div>
                             {errors[formElement.id].length>0 && <span className="text-danger fw-bolder">*{errors[formElement.id]}*</span>}
-                            <FormItems key={formElement.id} config={formElement.config} handleChange={e=>this.handleChange(e)} elementValue={formElement.id==="image"?'':stockData[formElement.id]}/>
+                            <FormItems key={formElement.id} config={formElement.config} elementValue={formElement.id==="image"?'':stockData[formElement.id]}/>
                             {formElement.id==='image'?<img src={stockData.image} id="img" alt="" height="200px" className="shadow rounded my-3 img-fluid rounded-start" />:''}                 
                         </div>
                         )}
