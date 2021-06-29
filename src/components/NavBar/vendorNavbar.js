@@ -2,8 +2,9 @@ import React from "react";
 import reactDom from "react-dom";
 import { connect } from "react-redux";
 
-class Navbar extends React.Component{
-    logout=e=>{
+//class Navbar extends React.Component{
+function Navbar() {  
+   const logout=e=>{
         this.props.cartDispatcher([]);
         this.props.userLoginDispatcher([]);
         this.props.vendorloginDispatcher([]);
@@ -11,7 +12,7 @@ class Navbar extends React.Component{
         this.props.productDispatcher([]);
         this.props.editDispatcher([])
     }
-    render(){
+   // render(){
         return(
             <div>
                 <nav className="navbar bg-success shadow rounded">
@@ -30,7 +31,7 @@ class Navbar extends React.Component{
             </div>
         )
     }
-}
+
 
 const mapStateToProps = state =>{
     return{

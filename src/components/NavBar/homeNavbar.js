@@ -2,9 +2,10 @@ import React from "react";
 import reactDom from "react-dom";
 import './logo.css'
 
-export default class Navbar extends React.Component{
-    render(){
-        return(
+//export default class Navbar extends React.Component{
+ //   render(){
+ function Navbar() { 
+      return(
             <div>
                 <nav className="navbar bg-success shadow rounded">
                     <div className="container text-white">
@@ -17,4 +18,4 @@ export default class Navbar extends React.Component{
             </div>
         )
     }
-}
+export default Navbar;

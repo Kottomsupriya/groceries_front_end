@@ -14,8 +14,8 @@ class Confirmation extends React.Component{
             });
         }
     }
-    render(){
-        let orderlist=this.props.order;
+   render(){
+      let orderlist=this.props.order;
         {this.stockUpdate()}
         return(
             <div className="container">
@@ -55,6 +55,7 @@ class Confirmation extends React.Component{
         )
     }
 }
+
 
 const mapStateToProps = state =>{
     console.log("orderlist:",state.user.orderDetails)

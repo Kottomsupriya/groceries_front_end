@@ -2,15 +2,16 @@ import React from "react";
 import Navbar from '../NavBar/userNavbar'
 import { connect } from "react-redux";
 
-class Orders extends React.Component{
-    constructor(){
-        super();
-        this.state={
+//class Orders extends React.Component{
+  // constructor(){
+    //   super();
+      //  this.state={
 
-        }
-    }
-    render(){
-        let orderlist=this.props.order;
+        //}
+   // }
+    //render(){
+    function Orders(props) {
+        let orderlist=props.order;
         return(
             <div className="container">
                 <Navbar/>
@@ -41,7 +42,7 @@ class Orders extends React.Component{
                                 </div>
                             )        
                         })
-                    }
+    }
                 </div>
                 <div className={orderlist.length?"d-none":"d-block"}>
                     <h1>No recent orders</h1>
@@ -49,7 +50,8 @@ class Orders extends React.Component{
             </div>
         )
     }
-}
+
+
 
 const mapStateToProps = state =>{
     console.log("orderlist:",state.user.orderDetails)
