@@ -1,6 +1,7 @@
 import React from 'react';
 import Navbar from '../NavBar/userNavbar'
 import { connect } from "react-redux";
+import axios from 'axios';
 
 class Payment extends React.Component{
     constructor(){
@@ -18,7 +19,6 @@ class Payment extends React.Component{
             }
         }
     }
-
     handleName=e=>{
         e.preventDefault();
         let value=e.target.value;
@@ -95,6 +95,14 @@ class Payment extends React.Component{
             if(nameErr.length===0 && numErr.length===0 && cvvErr.length===0 && dateErr.length===0){
                 let cart = this.props.cart;
                 this.props.orderDispatcher(cart);
+                for(let i=0;i<this.props.cart.length;i++){
+                    let editData = this.props.cart[i];
+                    editData.totalStock = editData.totalStock-editData.count;
+                    console.log(editData);
+                    axios.post('http://localhost:4500/stock-update',editData).then((res)=>{
+                        console.log(res);
+                    });
+                }
                 this.props.cartDispatcher([]);
                 alert("Successfully paid");
                 this.props.history.push('/order-confirmation');
