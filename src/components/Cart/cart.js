@@ -3,24 +3,12 @@ import Navbar from '../NavBar/userNavbar'
 import { connect } from "react-redux";
 
 class Cart extends React.Component{
-    // constructor(){
-    //     super();
-    //     let data= JSON.parse(localStorage.getItem("cartList"));
-    //     this.state={
-    //         cartList:data,
-    //     }
-    // }
-
     addItem=(e,index)=>{
         e.preventDefault();
         let cartList =  this.props.cart;
         cartList[index].count = cartList[index].count + 1;
         this.props.cartDispatcher(cartList);
         window.location.reload();
-        // localStorage.setItem("cartList",JSON.stringify(cartList));
-        // console.log(JSON.parse(localStorage.getItem("cartList")))
-        // this.setState({cartList:cartList});
-        // this.setState({count:cartList[index].count});
     }
 
     totalAmount=()=>{
@@ -41,10 +29,7 @@ class Cart extends React.Component{
             cartList.splice(index,1);
         }
         this.props.cartDispatcher(cartList);
-        window.location.reload();
-        // localStorage.setItem("cartList",JSON.stringify(cartList));
-        // console.log(JSON.parse(localStorage.getItem("cartList")))
-        // this.setState({cartList:cartList});       
+        window.location.reload();     
     }
     handlePayment=e=>{
         this.props.history.push("/payment");
